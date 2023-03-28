@@ -9,13 +9,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MysqlCon {
-    String mysql_ip = "";// 電腦ip 自己cmd打ipconfig Ipv4位置
+    String mysql_ip = "140.136.2.198";// 電腦ip 自己cmd打ipconfig Ipv4位置
     int mysql_port = 3306; // Port 預設為 3306
-    String db_name = "test"; //自己資料庫collection名字
+    String db_name = "item"; //自己資料庫collection名字
     String url = "jdbc:mysql://"+mysql_ip+":"+mysql_port+"/"+db_name;
 
-    String db_user = "test"; //'root'@'localhost'
-    //ALTER USER 'test'@'LAPTOP-UF2JJMM9' IDENTIFIED WITH mysql_native_password BY 'A123456789a!';
+    String db_user = "user"; //'root'@'localhost'
+    //CREATE USER 'user'@'cgh200' IDENTIFIED BY 'user';(先做)
+    //(ALTER USER 'test'@'LAPTOP-UF2JJMM9' IDENTIFIED WITH mysql_native_password BY 'A123456789a!';)不一定
     //GRANT ALL ON *.* TO 'test'@'LAPTOP-UF2JJMM9';
     //FLUSH PRIVILEGES;
     String db_password = "A123456789a!";
@@ -43,14 +44,14 @@ public class MysqlCon {
         String data = "";
         try {
             Connection con = DriverManager.getConnection(url, db_user, db_password);
-            String sql = "SELECT * FROM test";
+            String sql = "SELECT * FROM user";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next())
             {
-                String id = rs.getString("user_id");
-                String name = rs.getString("hos_id");
+                String id = rs.getString("userID");
+                String name = rs.getString("userDepartment");
                 data += id + "\n" + name;
             }
             st.close();
