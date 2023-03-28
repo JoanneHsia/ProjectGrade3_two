@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MysqlCon {
-    String mysql_ip = "192.168.137.1";// 電腦ip 自己cmd打ipconfig Ipv4位置
+    String mysql_ip = "";// 電腦ip 自己cmd打ipconfig Ipv4位置
     int mysql_port = 3306; // Port 預設為 3306
     String db_name = "test"; //自己資料庫collection名字
     String url = "jdbc:mysql://"+mysql_ip+":"+mysql_port+"/"+db_name;
