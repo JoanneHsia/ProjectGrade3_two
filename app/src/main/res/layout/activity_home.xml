@@ -49,63 +49,68 @@
 
     <Button
         android:id="@+id/btn_mms"
-        android:layout_width="331dp"
-        android:layout_height="59dp"
+        android:layout_width="320dp"
+        android:layout_height="80dp"
         android:backgroundTint="#44C3C3C3"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.520"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.377" />
+        app:layout_constraintVertical_bias="0.374" />
 
     <Button
         android:id="@+id/btn_borrow"
-        android:layout_width="331dp"
-        android:layout_height="59dp"
+        android:layout_width="320dp"
+        android:layout_height="80dp"
         android:backgroundTint="#44C3C3C3"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.520"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.517" />
+        app:layout_constraintVertical_bias="0.519" />
 
     <Button
         android:id="@+id/btn_occupy"
-        android:layout_width="331dp"
-        android:layout_height="59dp"
+        android:layout_width="320dp"
+        android:layout_height="80dp"
         android:backgroundTint="#44C3C3C3"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.520"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.659" />
+        app:layout_constraintVertical_bias="0.664" />
 
     <Button
         android:id="@+id/btn_repair"
-        android:layout_width="331dp"
-        android:layout_height="59dp"
+        android:layout_width="320dp"
+        android:layout_height="80dp"
         android:backgroundTint="#44C3C3C3"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.520"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.810" />
 
     <Button
         android:id="@+id/btn_return"
-        android:layout_width="331dp"
-        android:layout_height="59dp"
+        android:layout_width="320dp"
+        android:layout_height="80dp"
         android:backgroundTint="#44C3C3C3"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.520"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.941" />
+        app:layout_constraintVertical_bias="0.952" />
 
     <!--android:background="#00000000"實體手機位置確認後按鈕再改透明-->
 
