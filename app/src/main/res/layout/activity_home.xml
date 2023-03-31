@@ -47,4 +47,66 @@
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btn_mms"
+        android:layout_width="331dp"
+        android:layout_height="59dp"
+        android:backgroundTint="#44C3C3C3"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.377" />
+
+    <Button
+        android:id="@+id/btn_borrow"
+        android:layout_width="331dp"
+        android:layout_height="59dp"
+        android:backgroundTint="#44C3C3C3"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.517" />
+
+    <Button
+        android:id="@+id/btn_occupy"
+        android:layout_width="331dp"
+        android:layout_height="59dp"
+        android:backgroundTint="#44C3C3C3"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.659" />
+
+    <Button
+        android:id="@+id/btn_repair"
+        android:layout_width="331dp"
+        android:layout_height="59dp"
+        android:backgroundTint="#44C3C3C3"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <Button
+        android:id="@+id/btn_return"
+        android:layout_width="331dp"
+        android:layout_height="59dp"
+        android:backgroundTint="#44C3C3C3"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.941" />
+
+    <!--android:background="#00000000"實體手機位置確認後按鈕再改透明-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

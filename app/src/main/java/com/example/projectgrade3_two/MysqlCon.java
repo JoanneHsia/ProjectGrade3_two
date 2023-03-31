@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MysqlCon {
-    String mysql_ip = "140.136.2.198";// 電腦ip 自己cmd打ipconfig Ipv4位置
+    String mysql_ip = "140.136.47.137";// 電腦ip 自己cmd打ipconfig Ipv4位置
     int mysql_port = 3306; // Port 預設為 3306
     String db_name = "item"; //自己資料庫collection名字
     String url = "jdbc:mysql://"+mysql_ip+":"+mysql_port+"/"+db_name;
@@ -19,7 +19,13 @@ public class MysqlCon {
     //(ALTER USER 'test'@'LAPTOP-UF2JJMM9' IDENTIFIED WITH mysql_native_password BY 'A123456789a!';)不一定
     //GRANT ALL ON *.* TO 'test'@'LAPTOP-UF2JJMM9';
     //FLUSH PRIVILEGES;
-    String db_password = "A123456789a!";
+
+
+    //CREATE USER 'user'@'LAPTOP-F8LDL4R9' IDENTIFIED BY 'user';
+    //ALTER USER 'user'@'LAPTOP-F8LDL4R9' IDENTIFIED WITH mysql_native_password BY '1qaz2wsx3edc';
+    //GRANT ALL ON *.* TO 'user'@'LAPTOP-F8LDL4R9';
+    //FLUSH PRIVILEGES;
+    String db_password = "1qaz2wsx3edc";
 
     public void run() {
         try {
