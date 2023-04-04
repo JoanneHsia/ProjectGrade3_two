@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email, password;
+                String email, password, user_id;
+                user_id = emailText.getText().toString().trim();
                 email = emailText.getText().toString() + "@fjuh.com";
                 password = passwordText.getText().toString();
 
@@ -65,7 +66,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("user_id", user_id);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            return;
+//                          startActivity(new Intent(MainActivity.this, HomeActivity.class));
                         }else {
                             Toast.makeText(MainActivity.this, "帳號或密碼有誤，請再試一次", Toast.LENGTH_LONG).show();
                         }
