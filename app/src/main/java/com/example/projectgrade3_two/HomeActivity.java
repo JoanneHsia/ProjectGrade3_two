@@ -105,7 +105,7 @@ private void login(String user_id){
                                 JSONObject object = jsonArray.getJSONObject(i);
 
                                 String userId = object.getString("user_id").trim();
-                                String hosId = object.getString("user_department").trim();
+                                String hosId = object.getString("user_name").trim();
 
                                 txtUserID = findViewById(R.id.txt_userID);
                                 txtHosID = findViewById(R.id.txt_hosID);
