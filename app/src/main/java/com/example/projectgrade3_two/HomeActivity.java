@@ -98,13 +98,14 @@ private void login(String user_id){
                         JSONObject jsonObject = new JSONObject(response);
                         String success = jsonObject.getString("success");
                         JSONArray jsonArray = jsonObject.getJSONArray("userProfile");
+                        Log.d("response", response);
 
                         if (success.equals("1")) {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject object = jsonArray.getJSONObject(i);
 
                                 String userId = object.getString("user_id").trim();
-                                String hosId = object.getString("hos_department").trim();
+                                String hosId = object.getString("user_department").trim();
 
                                 txtUserID = findViewById(R.id.txt_userID);
                                 txtHosID = findViewById(R.id.txt_hosID);
@@ -112,17 +113,15 @@ private void login(String user_id){
                                 txtUserID.setText(userId);
                                 txtHosID.setText(hosId);
 
+                                Log.d("userId", userId);
+                                Log.d("hosId", hosId);
+
                                 Toast.makeText(HomeActivity.this, "ok2", Toast.LENGTH_SHORT).show();
-
-
-
                             }
-
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(HomeActivity.this, "err", Toast.LENGTH_SHORT).show();
-
                     }
                 }
             }, new Response.ErrorListener() {
