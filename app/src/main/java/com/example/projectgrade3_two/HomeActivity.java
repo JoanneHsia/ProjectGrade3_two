@@ -98,14 +98,14 @@ private void login(String user_id){
                         JSONObject jsonObject = new JSONObject(response);
                         String success = jsonObject.getString("success");
                         JSONArray jsonArray = jsonObject.getJSONArray("userProfile");
-                        Log.d("response", response);
+//                        Log.d("response", response);
 
                         if (success.equals("1")) {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject object = jsonArray.getJSONObject(i);
 
                                 String userId = object.getString("user_id").trim();
-                                String hosId = object.getString("user_name").trim();
+                                String hosId = object.getString("user_department").trim();
 
                                 txtUserID = findViewById(R.id.txt_userID);
                                 txtHosID = findViewById(R.id.txt_hosID);
