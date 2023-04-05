@@ -71,11 +71,52 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         Button mmsPageBtn = (Button)findViewById(R.id.btn_mms);
+        Button borrowPageBtn = (Button)findViewById(R.id.btn_borrow);
+        Button occupyPageBtn = (Button)findViewById(R.id.btn_occupy);
+        Button repairPageBtn = (Button)findViewById(R.id.btn_repair);
+        Button returnPageBtn = (Button)findViewById(R.id.btn_return);
+
         mmsPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(HomeActivity.this  ,MmsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        borrowPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(HomeActivity.this  ,RentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        occupyPageBtn .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(HomeActivity.this  ,OccupyActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        repairPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(HomeActivity.this  ,RepaireActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        returnPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(HomeActivity.this  ,ReturnActivity.class);
                 startActivity(intent);
             }
         });
