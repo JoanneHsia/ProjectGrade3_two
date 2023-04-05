@@ -69,6 +69,17 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, MainActivity.class));
             }
         });
+
+        Button mmsPageBtn = (Button)findViewById(R.id.btn_mms);
+        mmsPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(HomeActivity.this  ,MmsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 //        final TextView text_view = (TextView) findViewById(R.id.tx_db);
