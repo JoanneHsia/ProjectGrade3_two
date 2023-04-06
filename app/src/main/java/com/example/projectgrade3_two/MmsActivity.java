@@ -28,11 +28,12 @@ public class MmsActivity extends AppCompatActivity {
 
         TextView id_U = (TextView) findViewById(R.id.idU);
         TextView id_D = (TextView) findViewById(R.id.idD);
+
         Bundle bundle =  getIntent().getExtras();
         String a = bundle.getString("idU");
         String b = bundle.getString("idD");
         Log.d("a", a);
-
+        Log.d("b", b);
         id_U.setText(a);
         id_D.setText(b);
 

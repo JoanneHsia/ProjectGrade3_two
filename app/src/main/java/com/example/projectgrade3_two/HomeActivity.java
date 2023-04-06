@@ -44,62 +44,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button btn_logout;
 
-    private void login(String user_id){
-
-        StringRequest request = new StringRequest(Request.Method.POST, urllogin,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("userProfile");
-//                        Log.d("response", response);
-
-                            if (success.equals("1")) {
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject object = jsonArray.getJSONObject(i);
-
-                                    String userId = object.getString("user_id").trim();
-                                    String hosId = object.getString("user_department").trim();
-
-                                    txtUserID = findViewById(R.id.txt_userID);
-                                    txtHosID = findViewById(R.id.txt_hosID);
-
-                                    txtUserID.setText(userId);
-                                    txtHosID.setText(hosId);
-
-                                    Log.d("userId", userId);
-                                    Log.d("hosId", hosId);
-
-                                    Toast.makeText(HomeActivity.this, "ok2", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(HomeActivity.this, "err", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-        }
-        ){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", user_id);
-
-                return params;
-            }
-        };
-
-        Volley.newRequestQueue(this).add(request);
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -110,9 +54,8 @@ public class HomeActivity extends AppCompatActivity {
         user_id = bundle.getString("user_id");
         login(user_id);
 
-    String a=user_id;
-
-    //String b = txtHosID.toString();
+        String a=user_id;
+        String b = String.valueOf(txtHosID).toString();
 
         getWindow().getDecorView().setSystemUiVisibility(
 
@@ -146,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent();
 
                 bundle.putString("idU", a);
-               // bundle.putString("idD", b);
+                bundle.putString("idD", b);
                 intent.putExtras(bundle);
                 intent.setClass(HomeActivity.this  ,MmsActivity.class);
                 startActivity(intent);
@@ -210,6 +153,63 @@ public class HomeActivity extends AppCompatActivity {
 //
 //            }
 //        }).start();
+
+    private void login(String user_id){
+
+        StringRequest request = new StringRequest(Request.Method.POST, urllogin,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("userProfile");
+//                        Log.d("response", response);
+
+                            if (success.equals("1")) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+
+                                    String userId = object.getString("user_id").trim();
+                                    String hosId = object.getString("user_department").trim();
+
+                                    txtUserID = findViewById(R.id.txt_userID);
+                                    txtHosID = findViewById(R.id.txt_hosID);
+
+                                    txtUserID.setText(userId);
+                                    txtHosID.setText(hosId);
+
+                                    Log.d("userId", userId);
+                                    Log.d("hosId", hosId);
+
+                                    Toast.makeText(HomeActivity.this, "ok2", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(HomeActivity.this, "err", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", user_id);
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(request);
+
+    }
 
 
 
