@@ -7,8 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+import java.text.BreakIterator;
 
 public class MmsActivity extends AppCompatActivity {
 
@@ -21,6 +25,7 @@ public class MmsActivity extends AppCompatActivity {
 
         Button backPageBtn = (Button)findViewById(R.id.mmsback_btn);
         Button btn_mmsScan = (Button)findViewById(R.id.btn_mmsScan);
+
         backPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,11 +45,26 @@ public class MmsActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         }));
-
-
-
-
     }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+        TextView mmstextView = (TextView)findViewById(R.id.mmstextView);
+        IntentResult ScanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode,intent);
+
+        if(ScanResult !=null){
+            if(ScanResult.getContents() != null) {
+                String Scan = ScanResult.getContents();
+                if(!Scan.equals("")){
+                    mmstextView.setText(Scan.toString());
+                }
+            }
+        }else{
+            super.onActivityResult(requestCode,resultCode,intent);
+            mmstextView.setText("產生錯誤");
+        }
+    }
+
 
 
 
