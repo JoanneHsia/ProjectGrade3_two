@@ -76,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
         Button repairPageBtn = (Button)findViewById(R.id.btn_repair);
         Button returnPageBtn = (Button)findViewById(R.id.btn_return);
 
+
         mmsPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
