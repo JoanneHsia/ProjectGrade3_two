@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_scan"
+        android:id="@+id/btn_mmsScan"
         android:layout_width="43dp"
         android:layout_height="64dp"
         android:background="#00000000"

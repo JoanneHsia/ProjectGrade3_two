@@ -20,7 +20,7 @@ public class MmsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mms);
 
         Button backPageBtn = (Button)findViewById(R.id.mmsback_btn);
-        Button btn_scan = (Button)findViewById(R.id.btn_scan);
+        Button btn_mmsScan = (Button)findViewById(R.id.btn_mmsScan);
         backPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,8 +29,7 @@ public class MmsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        btn_scan.setOnClickListener((new View.OnClickListener() {
+        btn_mmsScan.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 IntentIntegrator integrator=new IntentIntegrator(context);
