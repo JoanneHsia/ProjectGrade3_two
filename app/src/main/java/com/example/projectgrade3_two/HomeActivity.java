@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ import java.util.Map;
 public class HomeActivity extends AppCompatActivity {
 
     TextView txtUserID, txtHosID;
+
+
     String user_id;
 
     String urllogin = "https://projectgrade3two.000webhostapp.com/userprofile.php";
@@ -51,6 +54,12 @@ public class HomeActivity extends AppCompatActivity {
         Bundle bundle =  getIntent().getExtras();
         user_id = bundle.getString("user_id");
         login(user_id);
+        Log.d("a", user_id);
+    String a=user_id;
+
+   // String b = hos;
+
+
 
         getWindow().getDecorView().setSystemUiVisibility(
 
@@ -76,11 +85,15 @@ public class HomeActivity extends AppCompatActivity {
         Button repairPageBtn = (Button)findViewById(R.id.btn_repair);
         Button returnPageBtn = (Button)findViewById(R.id.btn_return);
 
-
         mmsPageBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent();
+
+                bundle.putString("idU", a);
+                intent.putExtras(bundle);
                 intent.setClass(HomeActivity.this  ,MmsActivity.class);
                 startActivity(intent);
             }
