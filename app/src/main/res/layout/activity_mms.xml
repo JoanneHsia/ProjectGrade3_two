@@ -7,18 +7,31 @@
     android:background="@drawable/mms"
     tools:context=".MmsActivity">
 
-    <Spinner
-        android:id="@+id/spinner_mms"
-        android:layout_width="195dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="164dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerEX2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.875"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="359dp"
+        android:layout_height="83dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="23dp"
+        tools:layout_editor_absoluteY="144dp">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="點班"
+            android:textSize="34sp" />
+
+        <Spinner
+            android:id="@+id/spinner_mms"
+            android:layout_width="195dp"
+            android:layout_height="46dp"
+            android:layout_margin="25dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="32dp" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/mmsback_btn"
@@ -26,8 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="644dp"
-        android:text="上一頁"
         android:backgroundTint="#004B97"
+        android:text="上一頁"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,5 +68,40 @@
         app:layout_constraintHorizontal_bias="0.342"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.556" />
+        app:layout_constraintVertical_bias="0.843" />
+
+    <LinearLayout
+        android:layout_width="385dp"
+        android:layout_height="194dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_mmsScan">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="欄位一" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="欄位二" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:text="欄位三" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
