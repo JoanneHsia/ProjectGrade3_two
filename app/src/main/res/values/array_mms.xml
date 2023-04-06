@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mms_array">
+        <item>D(白班)</item>
+        <item>E(小夜班)</item>
+        <item>N(大夜班)</item>
+    </string-array>
+
+
+</resources>

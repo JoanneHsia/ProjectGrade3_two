@@ -6,13 +6,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
-import java.text.BreakIterator;
 
 public class MmsActivity extends AppCompatActivity {
 
@@ -25,6 +25,13 @@ public class MmsActivity extends AppCompatActivity {
 
         Button backPageBtn = (Button)findViewById(R.id.mmsback_btn);
         Button btn_mmsScan = (Button)findViewById(R.id.btn_mmsScan);
+        Spinner spinnermms = findViewById(R.id.spinner_mms);
+
+
+        ArrayAdapter adapter1 = ArrayAdapter.createFromResource(this
+                ,R.array.mms_array,android.R.layout.simple_dropdown_item_1line);
+        spinnermms.setAdapter(adapter1);
+
 
         backPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
