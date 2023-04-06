@@ -94,7 +94,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        occupyPageBtn .setOnClickListener(new View.OnClickListener() {
+        occupyPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();

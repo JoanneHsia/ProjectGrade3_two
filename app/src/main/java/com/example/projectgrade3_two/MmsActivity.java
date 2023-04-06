@@ -2,12 +2,17 @@ package com.example.projectgrade3_two;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+
 public class MmsActivity extends AppCompatActivity {
+
+    private Activity context=this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +20,7 @@ public class MmsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mms);
 
         Button backPageBtn = (Button)findViewById(R.id.mmsback_btn);
+        Button btn_scan = (Button)findViewById(R.id.btn_scan);
         backPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -23,6 +29,18 @@ public class MmsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btn_scan.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentIntegrator integrator=new IntentIntegrator(context);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setCameraId(0);
+                integrator.setBarcodeImageEnabled(false);
+                integrator.setOrientationLocked(true);
+                integrator.initiateScan();
+            }
+        }));
 
 
 
