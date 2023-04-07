@@ -6,10 +6,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +34,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MmsActivity extends AppCompatActivity {
+
+    String urlitemClass = "https://projectgrade3two.000webhostapp.com/itemClass.php";
+    TableLayout classList;
 
     TextView txtUserID, txtHosID;
 
@@ -79,6 +86,21 @@ public class MmsActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         }));
+
+        spinnermms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView parent, View view, int position, long id) {
+                String item_class = parent.getItemAtPosition(position).toString().substring(0,1);
+                itemClass(item_class);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView parent) {
+            }
+        });
+
+
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -145,6 +167,81 @@ public class MmsActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("user_id", user_id);
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(request);
+
+    }
+
+    private void itemClass(String item_class){
+        classList = findViewById(R.id.classList);
+        classList.setStretchAllColumns(true);
+        TableLayout.LayoutParams row_layout = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams view_layout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+        StringRequest request = new StringRequest(Request.Method.POST, urlitemClass,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("classData");
+
+                            if (success.equals("1")) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+
+                                    TableRow tr = new TableRow(MmsActivity.this);
+                                    tr.setLayoutParams(row_layout);
+                                    tr.setGravity(Gravity.CENTER_HORIZONTAL);
+
+                                    TextView itemId = new TextView(MmsActivity.this);
+                                    itemId.setText(object.getString("item_id").trim());
+                                    itemId.setLayoutParams(view_layout);
+
+                                    TextView itemName = new TextView(MmsActivity.this);
+                                    itemName.setText(object.getString("item_name").trim());
+                                    itemName.setLayoutParams(view_layout);
+
+                                    TextView itemStatus = new TextView(MmsActivity.this);
+                                    itemStatus.setText(object.getString("item_status").trim());
+                                    itemStatus.setLayoutParams(view_layout);
+
+                                    TextView itemDescribe = new TextView(MmsActivity.this);
+                                    itemDescribe.setText(object.getString("item_describe").trim());
+                                    itemDescribe.setLayoutParams(view_layout);
+
+                                    tr.addView(itemId);
+                                    tr.addView(itemName);
+                                    tr.addView(itemStatus);
+                                    tr.addView(itemDescribe);
+                                    classList.addView(tr);
+
+                                }
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(MmsActivity.this, "err", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MmsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("item_class", item_class);
 
                 return params;
             }
