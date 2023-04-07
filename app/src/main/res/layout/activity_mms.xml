@@ -126,7 +126,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
-        android:id="@+id/idU"
+        android:id="@+id/mms_Userid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
@@ -135,12 +135,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/idD"
+        android:id="@+id/mms_hosid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/idU" />
+        app:layout_constraintTop_toBottomOf="@+id/mms_Userid" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

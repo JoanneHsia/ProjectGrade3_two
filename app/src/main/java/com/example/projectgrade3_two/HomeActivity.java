@@ -54,8 +54,6 @@ public class HomeActivity extends AppCompatActivity {
         user_id = bundle.getString("user_id");
         login(user_id);
 
-        String a=user_id;
-        String b = String.valueOf(txtHosID).toString();
 
         getWindow().getDecorView().setSystemUiVisibility(
 
@@ -82,19 +80,13 @@ public class HomeActivity extends AppCompatActivity {
         Button returnPageBtn = (Button)findViewById(R.id.btn_return);
 
         mmsPageBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent();
-
-                bundle.putString("idU", a);
-                bundle.putString("idD", b);
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, MmsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", user_id);
                 intent.putExtras(bundle);
-                intent.setClass(HomeActivity.this  ,MmsActivity.class);
                 startActivity(intent);
-
-
             }
         });
 
@@ -136,23 +128,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-//        final TextView text_view = (TextView) findViewById(R.id.tx_db);
-
-//        new Thread(new Runnable(){
-//            @Override
-//            public void run(){
-//                MysqlCon con = new MysqlCon();
-//                con.run();
-//                final String data = con.getData();
-//                Log.v("OK",data);
-//                text_view.post(new Runnable() {
-//                    public void run() {
-//                        text_view.setText(data);
-//                    }
-//                });
-//
-//            }
-//        }).start();
 
     private void login(String user_id){
 
@@ -164,7 +139,6 @@ public class HomeActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("userProfile");
-//                        Log.d("response", response);
 
                             if (success.equals("1")) {
                                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -181,8 +155,6 @@ public class HomeActivity extends AppCompatActivity {
 
                                     Log.d("userId", userId);
                                     Log.d("hosId", hosId);
-
-                                    Toast.makeText(HomeActivity.this, "ok2", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         } catch (JSONException e) {

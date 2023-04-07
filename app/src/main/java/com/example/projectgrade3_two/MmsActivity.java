@@ -9,14 +9,34 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class MmsActivity extends AppCompatActivity {
+
+    TextView txtUserID, txtHosID;
+
+
+    String user_id;
+
+    String urllogin = "https://projectgrade3two.000webhostapp.com/userprofile.php";
 
     private Activity context=this;
 
@@ -25,18 +45,9 @@ public class MmsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mms);
 
-
-        TextView id_U = (TextView) findViewById(R.id.idU);
-        TextView id_D = (TextView) findViewById(R.id.idD);
-
         Bundle bundle =  getIntent().getExtras();
-        String a = bundle.getString("idU");
-        String b = bundle.getString("idD");
-        Log.d("a", a);
-        Log.d("b", b);
-        id_U.setText(a);
-        id_D.setText(b);
-
+        user_id = bundle.getString("user_id");
+        login(user_id);
 
 
         Button backPageBtn = (Button)findViewById(R.id.mmsback_btn);
@@ -87,6 +98,62 @@ public class MmsActivity extends AppCompatActivity {
             mmstextView.setText("產生錯誤");
         }
     }
+
+    private void login(String user_id){
+
+        StringRequest request = new StringRequest(Request.Method.POST, urllogin,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("userProfile");
+
+                            if (success.equals("1")) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+
+                                    String userId = object.getString("user_id").trim();
+                                    String hosId = object.getString("user_department").trim();
+
+                                    txtUserID = findViewById(R.id.mms_Userid);
+                                    txtHosID = findViewById(R.id.mms_hosid);
+
+                                    txtUserID.setText(userId);
+                                    txtHosID.setText(hosId);
+
+                                    Log.d("userId", userId);
+                                    Log.d("hosId", hosId);
+
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(MmsActivity.this, "err", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MmsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", user_id);
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(request);
+
+    }
+
 
 
 
