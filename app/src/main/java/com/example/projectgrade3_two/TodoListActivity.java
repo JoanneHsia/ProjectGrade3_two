@@ -57,7 +57,7 @@ public class TodoListActivity extends AppCompatActivity {
         btn_mmsScan.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentIntegrator integrator=new IntentIntegrator(context);
+                IntentIntegrator integrator=new IntentIntegrator(TodoListActivity.this);
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
                 integrator.setCameraId(0);
                 integrator.setBarcodeImageEnabled(false);

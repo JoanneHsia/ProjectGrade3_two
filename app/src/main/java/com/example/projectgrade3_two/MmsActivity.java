@@ -250,13 +250,6 @@ public class MmsActivity extends AppCompatActivity {
 
                         }
 
-//                            if ((response.equalsIgnoreCase("Data Inserted"))){
-//                                Toast.makeText(MainActivity.this, "ok", Toast.LENGTH_SHORT).show();
-//                            }
-//                            else {
-//                                Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
-//                            }
-
                     }
                 }, new Response.ErrorListener() {
             @Override

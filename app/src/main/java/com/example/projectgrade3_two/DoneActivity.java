@@ -34,7 +34,7 @@ public class DoneActivity extends AppCompatActivity {
 
     Button btn_done;
 
-    String urlUpdate = "https://projectgrade3two.000webhostapp.com/qrcodeDone.php";
+    String urlDoneUpdate = "https://projectgrade3two.000webhostapp.com/qrcodeDone.php";
     String urlitemid = "https://projectgrade3two.000webhostapp.com/searchItem.php";
 
     TextView txtItemID, txtItemName;
@@ -57,8 +57,8 @@ public class DoneActivity extends AppCompatActivity {
         btn_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateData(item_id);
-                startActivity(new Intent(DoneActivity.this, HomeActivity.class));
+                updateDoneData(item_id);
+                startActivity(new Intent(DoneActivity.this, TodoListActivity.class));
             }
         });
     }
@@ -78,14 +78,16 @@ public class DoneActivity extends AppCompatActivity {
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject object = jsonArray.getJSONObject(i);
 
-                                    String userId = object.getString("item_id").trim();
-                                    String hosId = object.getString("item_name").trim();
+                                    String itemId = object.getString("item_id").trim();
+                                    String itemName = object.getString("item_name").trim();
 
                                     txtItemID = findViewById(R.id.txt_itemID);
                                     txtItemName = findViewById(R.id.txt_itemName);
 
-                                    txtItemID.setText(userId);
-                                    txtItemName.setText(hosId);
+                                    txtItemID.setText(itemId);
+                                    txtItemName.setText(itemName);
+
+                                    Toast.makeText(DoneActivity.this, "ok4", Toast.LENGTH_SHORT).show();
 
                                 }
                             }
@@ -114,13 +116,13 @@ public class DoneActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
 
     }
-    private void updateData(String item_id) {
 
-        String item_describe = txtUpDescribe.getText().toString();
+    private void updateDoneData(String item_id) {
+
         String item_todo = "done";
+        String item_describe = txtUpDescribe.getText().toString().trim();
 
-
-        StringRequest request = new StringRequest(Request.Method.POST, urlUpdate,
+        StringRequest request = new StringRequest(Request.Method.POST, urlDoneUpdate,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -130,7 +132,7 @@ public class DoneActivity extends AppCompatActivity {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")){
-                                Toast.makeText(DoneActivity.this, "ok3", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(DoneActivity.this, "ok5", Toast.LENGTH_SHORT).show();
 
                             }
                         } catch (JSONException e) {
@@ -152,8 +154,8 @@ public class DoneActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("item_id", item_id);
                 params.put("item_todo", item_todo);
+                params.put("item_id", item_id);
                 params.put("item_describe", item_describe);
 
                 return params;
@@ -164,4 +166,5 @@ public class DoneActivity extends AppCompatActivity {
         requestQueue.add(request);
 
     }
+
 }
