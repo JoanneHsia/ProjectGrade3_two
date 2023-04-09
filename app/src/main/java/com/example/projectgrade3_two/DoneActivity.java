@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class DoneActivity extends AppCompatActivity {
 
-    String item_id;
+    String item_id, item_class;
 
     EditText txtUpDescribe;
 
@@ -51,6 +51,7 @@ public class DoneActivity extends AppCompatActivity {
 
         Bundle bundle =  getIntent().getExtras();
         item_id = bundle.getString("item_id");
+        item_class = bundle.getString("item_class");
 
         itemQrcode(item_id);
 
@@ -58,7 +59,12 @@ public class DoneActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateDoneData(item_id);
-                startActivity(new Intent(DoneActivity.this, TodoListActivity.class));
+                Intent intent = new Intent(DoneActivity.this, TodoListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("item_class",item_class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+//                startActivity(new Intent(DoneActivity.this, TodoListActivity.class));
             }
         });
     }

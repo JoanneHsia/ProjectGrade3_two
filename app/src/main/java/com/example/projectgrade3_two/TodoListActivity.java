@@ -82,6 +82,7 @@ public class TodoListActivity extends AppCompatActivity {
                     Intent intent = new Intent(TodoListActivity.this, DoneActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("item_id", item_id);
+                    bundle.putString("item_class",item_class);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
