@@ -34,7 +34,7 @@ public class DoneActivity extends AppCompatActivity {
 
     Button btn_done;
 
-    String urlDoneUpdate = "https://projectgrade3two.000webhostapp.com/qrcodeDone.php";
+    String urlDoneUpdate = "https://projectgrade3two.000webhostapp.com/checkItem.php";
     String urlitemid = "https://projectgrade3two.000webhostapp.com/searchItem.php";
 
     TextView txtItemID, txtItemName;
@@ -120,7 +120,7 @@ public class DoneActivity extends AppCompatActivity {
     private void updateDoneData(String item_id) {
 
         String item_todo = "done";
-        String item_describe = txtUpDescribe.getText().toString().trim();
+        String item_describe = txtUpDescribe.getText().toString();
 
         StringRequest request = new StringRequest(Request.Method.POST, urlDoneUpdate,
                 new Response.Listener<String>() {

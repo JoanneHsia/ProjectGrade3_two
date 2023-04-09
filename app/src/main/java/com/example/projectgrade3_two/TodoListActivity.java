@@ -47,6 +47,7 @@ public class TodoListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_todo_list);
 
         Bundle bundle =  getIntent().getExtras();
+
         item_class = bundle.getString("item_class");
 
         itemUndoClass(item_class);
