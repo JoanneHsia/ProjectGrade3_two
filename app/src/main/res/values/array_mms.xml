@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="mms_array">
+        <item>請選擇班表</item>
         <item>D(白班)</item>
         <item>E(小夜班)</item>
         <item>N(大夜班)</item>
