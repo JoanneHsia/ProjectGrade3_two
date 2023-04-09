@@ -2,8 +2,12 @@ package com.example.projectgrade3_two;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -15,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +31,15 @@ import java.util.Map;
 
 public class TodoListActivity extends AppCompatActivity {
 
-    String item_class;
+    String item_class, item_id;
 
     String urlitemUndo = "https://projectgrade3two.000webhostapp.com/undoItem.php";
     String urlitemDone = "https://projectgrade3two.000webhostapp.com/doneItem.php";
     TableLayout undoList, doneList;
+
+    Button btn_mmsScan;
+
+    private Activity context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +52,44 @@ public class TodoListActivity extends AppCompatActivity {
         itemUndoClass(item_class);
         itemDoneClass(item_class);
 
+        btn_mmsScan = findViewById(R.id.btn_qrcode);
 
+        btn_mmsScan.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentIntegrator integrator=new IntentIntegrator(context);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setCameraId(0);
+                integrator.setBarcodeImageEnabled(false);
+                integrator.setOrientationLocked(true);
+                integrator.initiateScan();
+            }
+        }));
+
+
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+        IntentResult ScanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode,intent);
+
+        if(ScanResult !=null){
+            if(ScanResult.getContents() != null) {
+                String Scan = ScanResult.getContents();
+                if(!Scan.equals("")){
+                    item_id = Scan.toString().trim();
+                    intent = new Intent(TodoListActivity.this, DoneActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("item_id", item_id);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            }
+        }else{
+            super.onActivityResult(requestCode,resultCode,intent);
+            Toast.makeText(TodoListActivity.this, "請重新掃描", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void itemUndoClass(String item_class){
