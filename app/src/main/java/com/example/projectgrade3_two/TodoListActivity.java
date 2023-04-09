@@ -70,16 +70,16 @@ public class TodoListActivity extends AppCompatActivity {
 
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        IntentResult ScanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode,intent);
+        IntentResult ScanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode,data);
 
         if(ScanResult !=null){
             if(ScanResult.getContents() != null) {
                 String Scan = ScanResult.getContents();
                 if(!Scan.equals("")){
-                    item_id = Scan.toString().trim();
-                    intent = new Intent(TodoListActivity.this, DoneActivity.class);
+                    item_id = Scan.trim();
+                    Intent intent = new Intent(TodoListActivity.this, DoneActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("item_id", item_id);
                     intent.putExtras(bundle);
@@ -87,7 +87,7 @@ public class TodoListActivity extends AppCompatActivity {
                 }
             }
         }else{
-            super.onActivityResult(requestCode,resultCode,intent);
+            super.onActivityResult(requestCode,resultCode,data);
             Toast.makeText(TodoListActivity.this, "請重新掃描", Toast.LENGTH_SHORT).show();
         }
     }

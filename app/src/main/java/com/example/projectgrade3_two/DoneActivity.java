@@ -50,7 +50,7 @@ public class DoneActivity extends AppCompatActivity {
         btn_done = findViewById(R.id.btn_done);
 
         Bundle bundle =  getIntent().getExtras();
-        item_id = getIntent().getStringExtra("SCAN_RESULT");
+        item_id = bundle.getString("item_id");
 
         itemQrcode(item_id);
 
