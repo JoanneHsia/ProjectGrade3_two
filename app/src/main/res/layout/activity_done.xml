@@ -64,14 +64,11 @@
         android:id="@+id/ed_describe"
         android:layout_width="219dp"
         android:layout_height="51dp"
-        android:layout_marginStart="106dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="86dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
-        android:hint="請輸入狀態"
+        android:hint="請輸入狀態(選填)"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
