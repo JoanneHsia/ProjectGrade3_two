@@ -211,7 +211,7 @@ public class TodoListActivity extends AppCompatActivity {
                                     tr.addView(itemName);
                                     tr.addView(itemStatus);
                                     tr.addView(itemDescribe);
-                                    undoList.addView(tr);
+                                    doneList.addView(tr);
 
                                 }
 
