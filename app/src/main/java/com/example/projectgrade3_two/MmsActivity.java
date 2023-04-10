@@ -57,22 +57,32 @@ public class MmsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mms);
 
+        getWindow().getDecorView().setSystemUiVisibility(
+
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION //隱藏狀態欄和標題欄
+
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION //全螢幕顯示
+
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY); //隱藏手機虛擬按鍵HOME/BACK/LIST按鍵
+
+
+
         Bundle bundle =  getIntent().getExtras();
         user_id = bundle.getString("user_id");
         login(user_id);
 
 
         Button backPageBtn = (Button)findViewById(R.id.mmsback_btn);
-        Button btn_mmsScan = (Button)findViewById(R.id.btn_mmsScan);
-        Spinner spinnermms = findViewById(R.id.spinner_mms);
+        //Button btn_mmsScan = (Button)findViewById(R.id.btn_mmsScan);
+       // Spinner spinnermms = findViewById(R.id.spinner_mms);
         btn_D = findViewById(R.id.btn_D);
         btn_E = findViewById(R.id.btn_E);
         btn_N = findViewById(R.id.btn_N);
 
 
-        ArrayAdapter adapter1 = ArrayAdapter.createFromResource(this
-                ,R.array.mms_array,android.R.layout.simple_dropdown_item_1line);
-        spinnermms.setAdapter(adapter1);
+      //  ArrayAdapter adapter1 = ArrayAdapter.createFromResource(this
+       //         ,R.array.mms_array,android.R.layout.simple_dropdown_item_1line);
+        //spinnermms.setAdapter(adapter1);
 
 
         backPageBtn.setOnClickListener(new View.OnClickListener() {
@@ -83,30 +93,20 @@ public class MmsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btn_mmsScan.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IntentIntegrator integrator=new IntentIntegrator(context);
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                integrator.setCameraId(0);
-                integrator.setBarcodeImageEnabled(false);
-                integrator.setOrientationLocked(true);
-                integrator.initiateScan();
-            }
-        }));
 
-        btn_D.setOnClickListener(new View.OnClickListener() {
-            @Override
+
+       btn_D.setOnClickListener(new View.OnClickListener() {
+           @Override
             public void onClick(View view) {
                 String item_class = "D";
                 Intent intent = new Intent(MmsActivity.this, TodoListActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("item_class", item_class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                updateUndoData(item_class);
-            }
-        });
+        Bundle bundle = new Bundle();
+              bundle.putString("item_class", item_class);
+              intent.putExtras(bundle);
+               startActivity(intent);
+          updateUndoData(item_class);
+             }
+          });
         btn_E.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,23 +156,23 @@ public class MmsActivity extends AppCompatActivity {
 
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+   // public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+   //
+   //      TextView mmstextView = (TextView)findViewById(R.id.mmstextView);
+    //     IntentResult ScanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode,intent);
 
-        TextView mmstextView = (TextView)findViewById(R.id.mmstextView);
-        IntentResult ScanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode,intent);
-
-        if(ScanResult !=null){
-            if(ScanResult.getContents() != null) {
-                String Scan = ScanResult.getContents();
-                if(!Scan.equals("")){
-                    mmstextView.setText(Scan.toString());
-                }
-            }
-        }else{
-            super.onActivityResult(requestCode,resultCode,intent);
-            mmstextView.setText("產生錯誤");
-        }
-    }
+    //     if(ScanResult !=null){
+        //         if(ScanResult.getContents() != null) {
+    //             String Scan = ScanResult.getContents();
+    //          if(!Scan.equals("")){
+    //             mmstextView.setText(Scan.toString());
+    //           }
+//       }
+    //   }else{
+    //       super.onActivityResult(requestCode,resultCode,intent);
+    //        mmstextView.setText("產生錯誤");
+    //     }
+    //  }
 
     private void login(String user_id){
 

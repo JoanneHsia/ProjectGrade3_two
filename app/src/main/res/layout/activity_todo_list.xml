@@ -18,15 +18,13 @@
 
     <TableLayout
         android:id="@+id/undo_list"
-        android:layout_width="390dp"
-        android:layout_height="219dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="11dp"
+        android:layout_width="363dp"
+        android:layout_height="208dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
         android:divider="?android:attr/listDivider"
         android:showDividers="beginning|middle|end"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
@@ -34,14 +32,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="388dp"
+        android:layout_width="369dp"
         android:layout_height="26dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="-4dp"
         android:layout_marginEnd="11dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
@@ -76,11 +73,10 @@
 
     <TableLayout
         android:id="@+id/done_list"
-        android:layout_width="390dp"
-        android:layout_height="205dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="11dp"
+        android:layout_width="363dp"
+        android:layout_height="208dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="4dp"
         android:divider="?android:attr/listDivider"
         android:showDividers="beginning|middle|end"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,9 +87,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="388dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="12dp"
+        android:layout_width="366dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="-4dp"
         android:layout_marginEnd="11dp"
         android:orientation="horizontal"
