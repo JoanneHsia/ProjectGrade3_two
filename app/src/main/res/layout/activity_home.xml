@@ -6,12 +6,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/home">
 
-    <Button
-        android:id="@+id/btn_logout"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/logout"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="53dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
         android:backgroundTint="#004B97"
         android:text="LOGOUT"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,12 +40,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="67dp"
         android:text="員工代碼："
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+        tools:layout_editor_absoluteX="49dp"
+        tools:layout_editor_absoluteY="155dp" />
 
     <TextView
         android:id="@+id/txt_userID"
