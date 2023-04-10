@@ -7,17 +7,6 @@
     android:background="@drawable/mms"
     tools:context=".MmsActivity">
 
-    <Button
-        android:id="@+id/mmsback_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="644dp"
-        android:backgroundTint="#004B97"
-        android:text="上一頁"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
@@ -101,5 +90,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_E" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/page" />
+
+    <Button
+        android:id="@+id/mmsback_btn"
+        android:layout_width="38dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="44dp"
+        android:background="#00000000"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

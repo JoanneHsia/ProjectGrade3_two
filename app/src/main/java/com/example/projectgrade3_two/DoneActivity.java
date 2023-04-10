@@ -101,7 +101,7 @@ public class DoneActivity extends AppCompatActivity {
                                     txtItemID.setText(itemId);
                                     txtItemName.setText(itemName);
 
-                                    Toast.makeText(DoneActivity.this, "ok4", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(DoneActivity.this, "ok4", Toast.LENGTH_SHORT).show();
 
                                 }
                             }
@@ -146,7 +146,7 @@ public class DoneActivity extends AppCompatActivity {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")){
-                                Toast.makeText(DoneActivity.this, "ok5", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(DoneActivity.this, "ok5", Toast.LENGTH_SHORT).show();
 
                             }
                         } catch (JSONException e) {

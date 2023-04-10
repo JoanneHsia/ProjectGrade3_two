@@ -88,8 +88,10 @@ public class MmsActivity extends AppCompatActivity {
         backPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MmsActivity.this  ,HomeActivity.class);
+                Intent intent = new Intent(MmsActivity.this, HomeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", user_id);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -241,7 +243,7 @@ public class MmsActivity extends AppCompatActivity {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")){
-                                Toast.makeText(MmsActivity.this, "ok3", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(MmsActivity.this, "ok3", Toast.LENGTH_SHORT).show();
 
                             }
                         } catch (JSONException e) {

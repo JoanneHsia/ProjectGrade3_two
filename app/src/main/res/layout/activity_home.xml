@@ -10,18 +10,19 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logout"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logout" />
 
     <Button
         android:id="@+id/btn_logout"
-        android:layout_width="53dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="#004B97"
-        android:text="LOGOUT"
+        android:layout_width="63dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:background="#00000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,10 +41,12 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="76dp"
         android:text="員工代碼："
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="155dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/txt_userID"

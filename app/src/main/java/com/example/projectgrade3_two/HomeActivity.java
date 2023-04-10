@@ -153,8 +153,6 @@ public class HomeActivity extends AppCompatActivity {
                                     txtUserID.setText(userId);
                                     txtHosID.setText(hosId);
 
-                                    Log.d("userId", userId);
-                                    Log.d("hosId", hosId);
                                 }
                             }
                         } catch (JSONException e) {
