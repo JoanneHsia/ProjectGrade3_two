@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_lend"
         android:layout_width="352dp"
         android:layout_height="73dp"
         android:layout_marginStart="27dp"
@@ -29,13 +29,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_borr"
         android:layout_width="345dp"
         android:layout_height="87dp"
         android:layout_marginStart="34dp"
         android:layout_marginTop="106dp"
         android:background="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_lend" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
