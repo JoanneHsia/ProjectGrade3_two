@@ -36,6 +36,7 @@ public class TodoListActivity extends AppCompatActivity {
 
     String urlitemUndo = "https://projectgrade3two.000webhostapp.com/undoItem.php";
     String urlitemDone = "https://projectgrade3two.000webhostapp.com/doneItem.php";
+    String urlInsert = "https://projectgrade3two.000webhostapp.com/insertMMS.php";
     TableLayout undoList, doneList;
 
     Button btn_mmsScan, btn_list;
@@ -62,7 +63,7 @@ public class TodoListActivity extends AppCompatActivity {
         itemUndoClass(item_class);
         itemDoneClass(item_class);
 
-        btn_mmsScan = findViewById(R.id.btn_list);
+        btn_list = findViewById(R.id.btn_list);
         btn_list.setVisibility(View.INVISIBLE);
 
         btn_mmsScan = findViewById(R.id.btn_qrcode);
@@ -83,6 +84,7 @@ public class TodoListActivity extends AppCompatActivity {
         btn_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                inserData();
                 Intent intent = new Intent(TodoListActivity.this, ListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("user_id", user_id);
@@ -277,9 +279,7 @@ public class TodoListActivity extends AppCompatActivity {
     }
 
     private void inserData() {
-        String user_id = txtUserID.getText().toString().trim();
-        String user_name = txtUserName.getText().toString().trim();
-        String hos_department = txtHosID.getText().toString().trim();
+
 
 
         StringRequest request = new StringRequest(Request.Method.POST, urlInsert,
@@ -292,7 +292,6 @@ public class TodoListActivity extends AppCompatActivity {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")){
-                                Toast.makeText(TodoListActivity.this, "ok", Toast.LENGTH_SHORT).show();
 
                             }
                         } catch (JSONException e) {
@@ -314,15 +313,14 @@ public class TodoListActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError{
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", user_id);
-                params.put("user_name", user_name);
-                params.put("hos_department", hos_department);
+                params.put("mms_user", user_id);
+                params.put("mms_class", item_class);
 
                 return params;
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(TodoListActivity.this);
         requestQueue.add(request);
 
     }

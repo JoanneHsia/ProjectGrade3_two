@@ -102,12 +102,12 @@ public class MmsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String item_class = "D";
                 Intent intent = new Intent(MmsActivity.this, TodoListActivity.class);
-        Bundle bundle = new Bundle();
-              bundle.putString("item_class", item_class);
-               bundle.putString("user_id", user_id);
-              intent.putExtras(bundle);
-               startActivity(intent);
-          updateUndoData(item_class);
+                Bundle bundle = new Bundle();
+                bundle.putString("item_class", item_class);
+                bundle.putString("user_id", user_id);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                updateUndoData(item_class);
              }
           });
         btn_E.setOnClickListener(new View.OnClickListener() {
