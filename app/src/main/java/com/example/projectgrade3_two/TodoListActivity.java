@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -31,13 +32,13 @@ import java.util.Map;
 
 public class TodoListActivity extends AppCompatActivity {
 
-    String item_class, item_id;
+    String item_class, item_id, user_id;
 
     String urlitemUndo = "https://projectgrade3two.000webhostapp.com/undoItem.php";
     String urlitemDone = "https://projectgrade3two.000webhostapp.com/doneItem.php";
     TableLayout undoList, doneList;
 
-    Button btn_mmsScan;
+    Button btn_mmsScan, btn_list;
 
     private Activity context = this;
 
@@ -61,6 +62,9 @@ public class TodoListActivity extends AppCompatActivity {
         itemUndoClass(item_class);
         itemDoneClass(item_class);
 
+        btn_mmsScan = findViewById(R.id.btn_list);
+        btn_list.setVisibility(View.INVISIBLE);
+
         btn_mmsScan = findViewById(R.id.btn_qrcode);
 
         btn_mmsScan.setOnClickListener((new View.OnClickListener() {
@@ -74,6 +78,18 @@ public class TodoListActivity extends AppCompatActivity {
                 integrator.initiateScan();
             }
         }));
+
+        user_id = bundle.getString("user_id");
+        btn_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TodoListActivity.this, ListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", user_id);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -121,9 +137,9 @@ public class TodoListActivity extends AppCompatActivity {
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject object = jsonArray.getJSONObject(i);
 
-                                    TableRow tr = new TableRow(TodoListActivity.this);
-                                    tr.setLayoutParams(row_layout);
-                                    tr.setGravity(Gravity.CENTER_HORIZONTAL);
+                                    TableRow trUndo = new TableRow(TodoListActivity.this);
+                                    trUndo.setLayoutParams(row_layout);
+                                    trUndo.setGravity(Gravity.CENTER_HORIZONTAL);
 
                                     TextView itemId = new TextView(TodoListActivity.this);
                                     itemId.setText(object.getString("item_id").trim());
@@ -141,13 +157,20 @@ public class TodoListActivity extends AppCompatActivity {
                                     itemDescribe.setText(object.getString("item_describe").trim());
                                     itemDescribe.setLayoutParams(view_layout);
 
-                                    tr.addView(itemId);
-                                    tr.addView(itemName);
-                                    tr.addView(itemStatus);
-                                    tr.addView(itemDescribe);
-                                    undoList.addView(tr);
+                                    trUndo.addView(itemId);
+                                    trUndo.addView(itemName);
+                                    trUndo.addView(itemStatus);
+                                    trUndo.addView(itemDescribe);
+                                    undoList.addView(trUndo);
 
+                                    if (trUndo.getChildCount() == 0){
+                                        btn_list.setVisibility(View.VISIBLE);
+                                    }
+                                    else {
+
+                                    }
                                 }
+
 
                             }
                         } catch (JSONException e) {
@@ -196,9 +219,9 @@ public class TodoListActivity extends AppCompatActivity {
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject object = jsonArray.getJSONObject(i);
 
-                                    TableRow tr = new TableRow(TodoListActivity.this);
-                                    tr.setLayoutParams(row_layout);
-                                    tr.setGravity(Gravity.CENTER_HORIZONTAL);
+                                    TableRow trDone = new TableRow(TodoListActivity.this);
+                                    trDone.setLayoutParams(row_layout);
+                                    trDone.setGravity(Gravity.CENTER_HORIZONTAL);
 
                                     TextView itemId = new TextView(TodoListActivity.this);
                                     itemId.setText(object.getString("item_id").trim());
@@ -216,11 +239,12 @@ public class TodoListActivity extends AppCompatActivity {
                                     itemDescribe.setText(object.getString("item_describe").trim());
                                     itemDescribe.setLayoutParams(view_layout);
 
-                                    tr.addView(itemId);
-                                    tr.addView(itemName);
-                                    tr.addView(itemStatus);
-                                    tr.addView(itemDescribe);
-                                    doneList.addView(tr);
+                                    trDone.addView(itemId);
+                                    trDone.addView(itemName);
+                                    trDone.addView(itemStatus);
+                                    trDone.addView(itemDescribe);
+                                    doneList.addView(trDone);
+
 
                                 }
 
@@ -249,6 +273,57 @@ public class TodoListActivity extends AppCompatActivity {
         };
 
         Volley.newRequestQueue(this).add(request);
+
+    }
+
+    private void inserData() {
+        String user_id = txtUserID.getText().toString().trim();
+        String user_name = txtUserName.getText().toString().trim();
+        String hos_department = txtHosID.getText().toString().trim();
+
+
+        StringRequest request = new StringRequest(Request.Method.POST, urlInsert,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")){
+                                Toast.makeText(TodoListActivity.this, "ok", Toast.LENGTH_SHORT).show();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(TodoListActivity.this, "err" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(TodoListActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError{
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", user_id);
+                params.put("user_name", user_name);
+                params.put("hos_department", hos_department);
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+        requestQueue.add(request);
 
     }
 
