@@ -20,7 +20,6 @@ public class RentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rent);
 
         Button backPageBtn = (Button)findViewById(R.id.rentback_btn);
-        Button btn_rentScan = (Button)findViewById(R.id.btn_rentScan);
         backPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,17 +29,7 @@ public class RentActivity extends AppCompatActivity {
             }
         });
 
-        btn_rentScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IntentIntegrator integrator=new IntentIntegrator(context);
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                integrator.setCameraId(0);
-                integrator.setBarcodeImageEnabled(false);
-                integrator.setOrientationLocked(true);
-                integrator.initiateScan();
-            }
-        });
+
 
     }
 }

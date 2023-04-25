@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mms"
+    android:background="@drawable/rent"
     tools:context=".RentActivity">
 
     <Button
@@ -13,19 +13,29 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="644dp"
-        android:text="上一頁"
         android:backgroundTint="#004B97"
+        android:text="上一頁"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="332dp"
-        android:layout_marginTop="44dp"
-        android:text="借用"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="352dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="306dp"
+        android:background="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="345dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="106dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
