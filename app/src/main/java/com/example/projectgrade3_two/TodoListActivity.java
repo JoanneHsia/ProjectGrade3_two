@@ -134,12 +134,12 @@ public class TodoListActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("classUndoData");
+                            TableRow trUndo = new TableRow(TodoListActivity.this);
 
                             if (success.equals("1")) {
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject object = jsonArray.getJSONObject(i);
 
-                                    TableRow trUndo = new TableRow(TodoListActivity.this);
                                     trUndo.setLayoutParams(row_layout);
                                     trUndo.setGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -165,14 +165,13 @@ public class TodoListActivity extends AppCompatActivity {
                                     trUndo.addView(itemDescribe);
                                     undoList.addView(trUndo);
 
-                                    if (trUndo.getChildCount() == 0){
-                                        btn_list.setVisibility(View.VISIBLE);
-                                    }
-                                    else {
-
-                                    }
                                 }
+                                if (trUndo.getChildCount() == 0){
+                                    btn_list.setVisibility(View.VISIBLE);
+                                }
+                                else {
 
+                                }
 
                             }
                         } catch (JSONException e) {
