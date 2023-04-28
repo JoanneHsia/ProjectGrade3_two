@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     TextView txtUserID, txtHosID;
 
 
-    String user_id;
+    String user_id, item_id;
 
     String urllogin = "https://projectgrade3two.000webhostapp.com/userprofile.php";
 
@@ -179,6 +181,27 @@ public class HomeActivity extends AppCompatActivity {
 
         Volley.newRequestQueue(this).add(request);
 
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        IntentResult ScanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode,data);
+
+        if(ScanResult !=null){
+            if(ScanResult.getContents() != null) {
+                String Scan = ScanResult.getContents();
+                if(!Scan.equals("")){
+                    item_id = Scan.trim();
+                    Intent intent = new Intent(HomeActivity.this, DoneActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("item_id", item_id);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            }
+        }else{
+            super.onActivityResult(requestCode,resultCode,data);
+            Toast.makeText(HomeActivity.this, "請重新掃描", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
