@@ -63,8 +63,6 @@ public class TodoListActivity extends AppCompatActivity {
         itemUndoClass(item_class);
         itemDoneClass(item_class);
 
-        btn_list = findViewById(R.id.btn_list);
-        btn_list.setVisibility(View.INVISIBLE);
 
         btn_mmsScan = findViewById(R.id.btn_qrcode);
 
@@ -81,17 +79,6 @@ public class TodoListActivity extends AppCompatActivity {
         }));
 
         user_id = bundle.getString("user_id");
-        btn_list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                inserData();
-                Intent intent = new Intent(TodoListActivity.this, ListActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("user_id", user_id);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
 
 
 
@@ -134,11 +121,12 @@ public class TodoListActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("classUndoData");
-                            TableRow trUndo = new TableRow(TodoListActivity.this);
 
                             if (success.equals("1")) {
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject object = jsonArray.getJSONObject(i);
+
+                                    TableRow trUndo = new TableRow(TodoListActivity.this);
 
                                     trUndo.setLayoutParams(row_layout);
                                     trUndo.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -164,12 +152,6 @@ public class TodoListActivity extends AppCompatActivity {
                                     trUndo.addView(itemStatus);
                                     trUndo.addView(itemDescribe);
                                     undoList.addView(trUndo);
-
-                                }
-                                if (trUndo.getChildCount() == 0){
-                                    btn_list.setVisibility(View.VISIBLE);
-                                }
-                                else {
 
                                 }
 
