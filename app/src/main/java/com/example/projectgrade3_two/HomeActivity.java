@@ -196,6 +196,7 @@ public class HomeActivity extends AppCompatActivity {
                     item_id = Scan.trim();
                     Intent intent = new Intent(HomeActivity.this, OccupyActivity.class);
                     Bundle bundle = new Bundle();
+                    bundle.putString("user_id", user_id);
                     bundle.putString("item_id", item_id);
                     intent.putExtras(bundle);
                     startActivity(intent);

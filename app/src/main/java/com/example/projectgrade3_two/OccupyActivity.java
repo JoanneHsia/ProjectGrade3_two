@@ -29,13 +29,13 @@ import java.util.Map;
 
 public class OccupyActivity extends AppCompatActivity {
 
-    String item_id;
+    String item_id, user_id, test_bed;
 
     EditText txtUpBed;
 
     Button btn_occSend;
 
-    String urlBedUpdate = "https://projectgrade3two.000webhostapp.com/updatebed.php";
+    String urlBedUpdate = "https://projectgrade3two.000webhostapp.com/updateBed.php";
     String urlitemid = "https://projectgrade3two.000webhostapp.com/searchItem.php";
 
     TextView txtItemID, txtItemName;
@@ -69,16 +69,25 @@ public class OccupyActivity extends AppCompatActivity {
 
         Bundle bundle =  getIntent().getExtras();
         item_id = bundle.getString("item_id");
+        user_id = bundle.getString(("user_id"));
 
         itemQrcode(item_id);
 
         btn_occSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                test_bed = txtUpBed.getText().toString().trim();
+                if (test_bed.isEmpty()){
+                    txtUpBed.setError("請填入病床");
+                    txtUpBed.requestFocus();
+                    return;
+                }
                 updateBed(item_id);
                 Intent intent = new Intent(OccupyActivity.this, HomeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id",user_id);
+                intent.putExtras(bundle);
                 startActivity(intent);
-//                startActivity(new Intent(DoneActivity.this, TodoListActivity.class));
             }
         });
 
