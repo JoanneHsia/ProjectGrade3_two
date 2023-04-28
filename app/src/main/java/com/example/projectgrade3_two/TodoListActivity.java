@@ -36,7 +36,6 @@ public class TodoListActivity extends AppCompatActivity {
 
     String urlitemUndo = "https://projectgrade3two.000webhostapp.com/undoItem.php";
     String urlitemDone = "https://projectgrade3two.000webhostapp.com/doneItem.php";
-    String urlInsert = "https://projectgrade3two.000webhostapp.com/insertMMS.php";
     TableLayout undoList, doneList;
 
     Button btn_mmsScan, btn_list;
@@ -59,9 +58,10 @@ public class TodoListActivity extends AppCompatActivity {
 
         Bundle bundle =  getIntent().getExtras();
         item_class = bundle.getString("item_class");
+        String item_status = "閒置中";
 
-        itemUndoClass(item_class);
-        itemDoneClass(item_class);
+        itemUndoClass(item_class, item_status);
+        itemDoneClass(item_class, item_status);
 
 
         btn_mmsScan = findViewById(R.id.btn_qrcode);
@@ -107,7 +107,7 @@ public class TodoListActivity extends AppCompatActivity {
         }
     }
 
-    private void itemUndoClass(String item_class){
+    private void itemUndoClass(String item_class, String item_status){
         undoList = findViewById(R.id.undo_list);
         undoList.setStretchAllColumns(true);
         TableLayout.LayoutParams row_layout = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
@@ -174,6 +174,7 @@ public class TodoListActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("item_class", item_class);
+                params.put("item_status", item_status);
 
                 return params;
             }
@@ -183,7 +184,7 @@ public class TodoListActivity extends AppCompatActivity {
 
     }
 
-    private void itemDoneClass(String item_class){
+    private void itemDoneClass(String item_class, String item_status){
         doneList = findViewById(R.id.done_list);
         doneList.setStretchAllColumns(true);
         TableLayout.LayoutParams row_layout = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
@@ -250,59 +251,13 @@ public class TodoListActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("item_class", item_class);
+                params.put("item_status", item_status);
 
                 return params;
             }
         };
 
         Volley.newRequestQueue(this).add(request);
-
-    }
-
-    private void inserData() {
-
-
-
-        StringRequest request = new StringRequest(Request.Method.POST, urlInsert,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-
-                            if (success.equals("1")){
-
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(TodoListActivity.this, "err" + e.toString(), Toast.LENGTH_SHORT).show();
-
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(TodoListActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-        }
-
-        ){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError{
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("mms_user", user_id);
-                params.put("mms_class", item_class);
-
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(TodoListActivity.this);
-        requestQueue.add(request);
 
     }
 
