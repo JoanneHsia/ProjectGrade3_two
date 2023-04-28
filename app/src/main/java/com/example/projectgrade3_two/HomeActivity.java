@@ -104,9 +104,12 @@ public class HomeActivity extends AppCompatActivity {
         occupyPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(HomeActivity.this  ,OccupyActivity.class);
-                startActivity(intent);
+                IntentIntegrator integrator=new IntentIntegrator(HomeActivity.this);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setCameraId(0);
+                integrator.setBarcodeImageEnabled(false);
+                integrator.setOrientationLocked(true);
+                integrator.initiateScan();
             }
         });
 
@@ -191,7 +194,7 @@ public class HomeActivity extends AppCompatActivity {
                 String Scan = ScanResult.getContents();
                 if(!Scan.equals("")){
                     item_id = Scan.trim();
-                    Intent intent = new Intent(HomeActivity.this, DoneActivity.class);
+                    Intent intent = new Intent(HomeActivity.this, OccupyActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("item_id", item_id);
                     intent.putExtras(bundle);

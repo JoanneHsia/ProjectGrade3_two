@@ -20,7 +20,6 @@ public class RepaireActivity extends AppCompatActivity {
         setContentView(R.layout.activity_repaire);
 
         Button backPageBtn = (Button)findViewById(R.id.repair_btn);
-        Button btn_reapireScan = (Button)findViewById(R.id.btn_repaireScan);
         backPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,17 +29,6 @@ public class RepaireActivity extends AppCompatActivity {
             }
         });
 
-        btn_reapireScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IntentIntegrator integrator=new IntentIntegrator(context);
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                integrator.setCameraId(0);
-                integrator.setBarcodeImageEnabled(false);
-                integrator.setOrientationLocked(true);
-                integrator.initiateScan();
-            }
-        });
 
     }
 }
