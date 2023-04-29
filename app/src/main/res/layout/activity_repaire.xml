@@ -33,26 +33,52 @@
         android:id="@+id/btn_repaire_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="202dp"
         android:text="送出"
-        tools:layout_editor_absoluteX="156dp"
-        tools:layout_editor_absoluteY="481dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="57dp"
         android:text="項目名稱："
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="96dp"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="30dp"
         android:text="項目ID："
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="253dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txt_repitem_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="196dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_reitem_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/txt_repitem_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
