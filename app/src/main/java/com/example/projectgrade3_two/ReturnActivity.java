@@ -31,7 +31,7 @@ public class ReturnActivity extends AppCompatActivity {
     String item_id, user_id;
 
     Button btn_retSend;
-    String urlRetUpdate = "https://projectgrade3two.000webhostapp.com/updateBed.php";
+    String urlRetUpdate = "https://projectgrade3two.000webhostapp.com/return.php";
     String urlitemid = "https://projectgrade3two.000webhostapp.com/searchItem.php";
 
     TextView txtItemID, txtItemName, txtItemStatus;
