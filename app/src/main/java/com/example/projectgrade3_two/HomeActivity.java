@@ -130,9 +130,13 @@ public class HomeActivity extends AppCompatActivity {
         returnPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(HomeActivity.this  ,ReturnActivity.class);
-                startActivity(intent);
+                buttontext = "return";
+                IntentIntegrator integrator=new IntentIntegrator(HomeActivity.this);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setCameraId(0);
+                integrator.setBarcodeImageEnabled(false);
+                integrator.setOrientationLocked(true);
+                integrator.initiateScan();
             }
         });
 
@@ -209,6 +213,14 @@ public class HomeActivity extends AppCompatActivity {
                     }
                     else if (buttontext.equals("repaire")) {
                         Intent intent = new Intent(HomeActivity.this, RepaireActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("user_id", user_id);
+                        bundle.putString("item_id", item_id);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    else if (buttontext.equals("return")) {
+                        Intent intent = new Intent(HomeActivity.this, ReturnActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("user_id", user_id);
                         bundle.putString("item_id", item_id);
