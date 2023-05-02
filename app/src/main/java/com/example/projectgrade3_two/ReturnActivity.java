@@ -136,7 +136,7 @@ public class ReturnActivity extends AppCompatActivity {
     private void updateRet(String item_id) {
 
         String item_status = "閒置中";
-        String item_occupybed = "";
+        String item_occupybed = "0";
 
         StringRequest request = new StringRequest(Request.Method.POST, urlRetUpdate,
                 new Response.Listener<String>() {

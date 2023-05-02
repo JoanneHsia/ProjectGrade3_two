@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +37,8 @@ public class TodoListActivity extends AppCompatActivity {
 
     String urlitemUndo = "https://projectgrade3two.000webhostapp.com/undoItem.php";
     String urlitemDone = "https://projectgrade3two.000webhostapp.com/doneItem.php";
+
+    String urlMMS = "https://projectgrade3two.000webhostapp.com/insertMMS.php";
     TableLayout undoList, doneList;
 
     Button btn_mmsScan, btn_list;
@@ -65,6 +68,9 @@ public class TodoListActivity extends AppCompatActivity {
 
 
         btn_mmsScan = findViewById(R.id.btn_qrcode);
+        btn_list = findViewById(R.id.btn_todolist);
+
+        btn_list.setVisibility(View.INVISIBLE);
 
         btn_mmsScan.setOnClickListener((new View.OnClickListener() {
             @Override
@@ -79,6 +85,19 @@ public class TodoListActivity extends AppCompatActivity {
         }));
 
         user_id = bundle.getString("user_id");
+
+        btn_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                insertMMS();
+                Intent intent = new Intent(TodoListActivity.this, ListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", user_id);
+                bundle.putString("item_class", item_class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -155,6 +174,8 @@ public class TodoListActivity extends AppCompatActivity {
 
                                 }
 
+                            } else if (success.equals("2")) {
+                                btn_list.setVisibility(View.VISIBLE);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -258,6 +279,53 @@ public class TodoListActivity extends AppCompatActivity {
         };
 
         Volley.newRequestQueue(this).add(request);
+
+    }
+    private void insertMMS() {
+
+        String mms_user = user_id;
+        String mms_class = item_class;
+        StringRequest request = new StringRequest(Request.Method.POST, urlMMS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")){
+//                                Toast.makeText(TodoListActivity.this, "歸還成功", Toast.LENGTH_SHORT).show();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(TodoListActivity.this, "err" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(TodoListActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mms_user", mms_user);
+                params.put("mms_class", mms_class);
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(TodoListActivity.this);
+        requestQueue.add(request);
 
     }
 
