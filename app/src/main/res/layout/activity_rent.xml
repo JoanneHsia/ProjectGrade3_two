@@ -115,12 +115,12 @@
         android:layout_marginTop="12dp"
         android:text="送出"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_date" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="154dp"
-        android:layout_height="52dp"
+        android:id="@+id/ed_user"
+        android:layout_width="150dp"
+        android:layout_height="51dp"
         android:layout_marginStart="6dp"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -131,8 +131,8 @@
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="139dp"
+        android:id="@+id/ed_department"
+        android:layout_width="157dp"
         android:layout_height="43dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="15dp"
@@ -141,7 +141,7 @@
         android:inputType="textPersonName"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/textView40"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_user" />
 
     <TextView
         android:id="@+id/textView41"
@@ -155,9 +155,9 @@
         app:layout_constraintTop_toBottomOf="@+id/textView40" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/ed_date"
+        android:layout_width="177dp"
+        android:layout_height="43dp"
         android:layout_marginStart="7dp"
         android:layout_marginTop="6dp"
         android:ems="10"
@@ -165,10 +165,10 @@
         android:inputType="textPersonName"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/textView41"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_department" />
 
     <TextView
-        android:id="@+id/textView42"
+        android:id="@+id/txt_rentItemID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -178,7 +178,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView43"
+        android:id="@+id/txt_rentName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
