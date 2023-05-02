@@ -45,11 +45,11 @@ public class ListActivity extends AppCompatActivity {
 
         // | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY); //隱藏手機虛擬按鍵HOME/BACK/LIST按鍵
 
-        Bundle bundle =  getIntent().getExtras();
-        item_class = bundle.getString("item_class");
-        String item_status = "閒置中";
-
-        itemDoneClass(item_class, item_status);
+//        Bundle bundle =  getIntent().getExtras();
+//        item_class = bundle.getString("item_class");
+//        String item_status = "閒置中";
+//
+//        itemDoneClass(item_class, item_status);
 
     }
 
