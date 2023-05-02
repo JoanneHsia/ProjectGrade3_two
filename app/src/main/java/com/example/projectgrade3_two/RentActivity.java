@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,11 +35,11 @@ public class RentActivity extends AppCompatActivity {
     private Activity context=this;
 
     String urlitemid = "https://projectgrade3two.000webhostapp.com/searchItem.php";
-    String urlrent = "https://projectgrade3two.000webhostapp.com/searchItem.php";
+    String urlrent = "https://projectgrade3two.000webhostapp.com/updaterent.php";
 
 
     Button btn_rent_send;
-    String item_id, user_id;
+    String item_id, user_id, type;
 
     TextView txtItemID, txtItemName;
 
@@ -70,9 +72,27 @@ public class RentActivity extends AppCompatActivity {
             }
         });
 
+        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.radio_lend:
+                        type = "lend";
+                        break;
+                    case R.id.radio_borrow:
+                        type = "borrow";
+                        break;
+                }
+            }
+        });
+
         btn_rent_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                insertRentData();
                 bundle.putString("user_id", user_id);
                 Intent intent = new Intent();
                 intent.setClass(RentActivity.this  ,HomeActivity.class);
@@ -142,6 +162,8 @@ public class RentActivity extends AppCompatActivity {
         String rent_user = txtUser.getText().toString();
         String rent_department = txtDep.getText().toString();
         String rent_end = txtDate.getText().toString();
+        String rent_item = item_id;
+        String rent_type = type;
 
         StringRequest request = new StringRequest(Request.Method.POST, urlrent,
                 new Response.Listener<String>() {
@@ -178,6 +200,8 @@ public class RentActivity extends AppCompatActivity {
                 params.put("rent_end", rent_end);
                 params.put("rent_user", rent_user);
                 params.put("rent_department", rent_department);
+                params.put("rent_item", rent_item);
+                params.put("rent_type", rent_type);
 
                 return params;
             }
