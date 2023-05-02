@@ -88,7 +88,7 @@
         android:id="@+id/btn_occupy"
         android:layout_width="320dp"
         android:layout_height="80dp"
-        android:backgroundTint="#00000000"
+        android:background="#00FFFFFF"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,27 +101,27 @@
         android:id="@+id/btn_repair"
         android:layout_width="320dp"
         android:layout_height="80dp"
-        android:backgroundTint="#00C3C3C3"
+        android:background="#00FFFFFF"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.520"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.810" />
+        app:layout_constraintVertical_bias="0.815" />
 
     <Button
         android:id="@+id/btn_return"
         android:layout_width="320dp"
         android:layout_height="80dp"
-        android:backgroundTint="#00000000"
+        android:background="#00FFFFFF"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.520"
+        app:layout_constraintHorizontal_bias="0.439"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.952" />
+        app:layout_constraintVertical_bias="0.961" />
 
     <TextView
         android:id="@+id/txt_hosID"

@@ -65,9 +65,10 @@ public class RentActivity extends AppCompatActivity {
         backPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(RentActivity.this, HomeActivity.class);
+                Bundle bundle = new Bundle();
                 bundle.putString("user_id", user_id);
-                Intent intent = new Intent();
-                intent.setClass(RentActivity.this  ,HomeActivity.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -92,10 +93,10 @@ public class RentActivity extends AppCompatActivity {
         btn_rent_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertRentData();
+                Intent intent = new Intent(RentActivity.this, HomeActivity.class);
+                Bundle bundle = new Bundle();
                 bundle.putString("user_id", user_id);
-                Intent intent = new Intent();
-                intent.setClass(RentActivity.this  ,HomeActivity.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
