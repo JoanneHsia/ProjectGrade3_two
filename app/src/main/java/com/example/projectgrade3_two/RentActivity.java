@@ -93,6 +93,7 @@ public class RentActivity extends AppCompatActivity {
         btn_rent_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                insertRentData();
                 Intent intent = new Intent(RentActivity.this, HomeActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("user_id", user_id);
@@ -176,7 +177,7 @@ public class RentActivity extends AppCompatActivity {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")){
-//                                Toast.makeText(DoneActivity.this, "ok5", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RentActivity.this, "借物成功", Toast.LENGTH_SHORT).show();
 
                             }
                         } catch (JSONException e) {
