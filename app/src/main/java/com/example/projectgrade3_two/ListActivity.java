@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -28,9 +29,10 @@ public class ListActivity extends AppCompatActivity {
 
     String urlitemDone = "https://projectgrade3two.000webhostapp.com/doneItem.php";
 
+
     TableLayout doneList;
 
-    String item_class,item_status;
+    String item_class, item_status, user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +47,12 @@ public class ListActivity extends AppCompatActivity {
 
         // | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY); //隱藏手機虛擬按鍵HOME/BACK/LIST按鍵
 
-//        Bundle bundle =  getIntent().getExtras();
-//        item_class = bundle.getString("item_class");
-//        String item_status = "閒置中";
-//
-//        itemDoneClass(item_class, item_status);
+        Bundle bundle =  getIntent().getExtras();
+        item_class = bundle.getString("item_class");
+        item_status = "閒置中";
+        user_id = bundle.getString("user_id");
+
+        itemDoneClass(item_class, item_status);
 
     }
 

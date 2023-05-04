@@ -61,6 +61,7 @@ public class TodoListActivity extends AppCompatActivity {
 
         Bundle bundle =  getIntent().getExtras();
         item_class = bundle.getString("item_class");
+        user_id = bundle.getString("user_id");
         String item_status = "閒置中";
 
         itemUndoClass(item_class, item_status);
@@ -84,7 +85,6 @@ public class TodoListActivity extends AppCompatActivity {
             }
         }));
 
-        user_id = bundle.getString("user_id");
 
         btn_list.setOnClickListener(new View.OnClickListener() {
             @Override
