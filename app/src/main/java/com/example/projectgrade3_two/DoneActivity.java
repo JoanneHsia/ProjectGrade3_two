@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class DoneActivity extends AppCompatActivity {
 
-    String item_id, item_class;
+    String item_id, item_class, user_id;
 
     EditText txtUpDescribe;
 
@@ -60,6 +60,8 @@ public class DoneActivity extends AppCompatActivity {
         Bundle bundle =  getIntent().getExtras();
         item_id = bundle.getString("item_id");
         item_class = bundle.getString("item_class");
+        user_id = bundle.getString("user_id");
+
 
         itemQrcode(item_id);
 
@@ -70,6 +72,7 @@ public class DoneActivity extends AppCompatActivity {
                 Intent intent = new Intent(DoneActivity.this, TodoListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("item_class",item_class);
+                bundle.putString("user_id",user_id);
                 intent.putExtras(bundle);
                 startActivity(intent);
 //                startActivity(new Intent(DoneActivity.this, TodoListActivity.class));
