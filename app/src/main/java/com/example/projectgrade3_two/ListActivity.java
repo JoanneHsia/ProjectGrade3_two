@@ -28,11 +28,12 @@ import java.util.Map;
 public class ListActivity extends AppCompatActivity {
 
     String urlitemDone = "https://projectgrade3two.000webhostapp.com/doneItem.php";
-
+    String urlmmsData = "https://projectgrade3two.000webhostapp.com/mmsdata.php";
 
     TableLayout doneList;
 
-    String item_class, item_status, user_id;
+    String item_class, item_status, mms_user;
+    TextView txtUserID, txtHosID, txtMMSTime, txtMMSClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +51,68 @@ public class ListActivity extends AppCompatActivity {
         Bundle bundle =  getIntent().getExtras();
         item_class = bundle.getString("item_class");
         item_status = "閒置中";
-        user_id = bundle.getString("user_id");
+        mms_user = bundle.getString("user_id");
 
         itemDoneClass(item_class, item_status);
+        mmsData(mms_user);
+
+    }
+
+    private void mmsData(String mms_user){
+
+        StringRequest request = new StringRequest(Request.Method.POST, urlmmsData,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("mmsData");
+
+                            if (success.equals("1")) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+
+                                    String userId = object.getString("mms_user").trim();
+                                    String hosId = object.getString("mms_department").trim();
+                                    String mmsClass = object.getString("mms_class").trim();
+                                    String mmsTime = object.getString("mms_time").trim();
+
+                                    txtUserID = findViewById(R.id.mms_userID);
+                                    txtHosID = findViewById(R.id.mms_itemDEP);
+                                    txtMMSClass = findViewById(R.id.mms_class);
+                                    txtMMSTime = findViewById(R.id.mms_time);
+
+                                    txtUserID.setText(userId);
+                                    txtHosID.setText(hosId);
+                                    txtMMSTime.setText(mmsTime);
+                                    txtMMSClass.setText(mmsClass);
+
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(ListActivity.this, "err", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ListActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mms_user", mms_user);
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(request);
 
     }
 
