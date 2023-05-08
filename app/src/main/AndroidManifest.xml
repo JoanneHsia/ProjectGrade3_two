@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ProjectGrade3_two"
         tools:targetApi="31">
         <activity
+            android:name=".RentListActivity"
+            android:exported="false" />
+        <activity
             android:name=".ListActivity"
             android:exported="false" />
         <activity
