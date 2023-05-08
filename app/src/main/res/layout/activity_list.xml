@@ -7,12 +7,22 @@
     android:background="@drawable/list"
     tools:context=".ListActivity">
 
+    <Button
+        android:id="@+id/button_mms_to_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="132dp"
+        android:text="回選單"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="80dp"
         android:text="員工代碼："
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +32,7 @@
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="6dp"
         android:text="單位："
         android:textSize="18sp"
@@ -33,7 +43,7 @@
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="6dp"
         android:text="班次："
         android:textSize="18sp"
@@ -44,7 +54,7 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="6dp"
         android:text="完成時間："
         android:textSize="18sp"
@@ -53,13 +63,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="383dp"
+        android:layout_width="372dp"
         android:layout_height="28dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="270dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView23">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView31"
@@ -92,19 +102,18 @@
 
     <TableLayout
         android:id="@+id/tb_list"
-        android:layout_width="395dp"
-        android:layout_height="367dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="372dp"
+        android:layout_height="407dp"
+        android:layout_marginStart="26dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/mms_userID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="80dp"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="parent" />
@@ -113,29 +122,29 @@
         android:id="@+id/mms_itemDEP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="8dp"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/textView21"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/mms_userID" />
 
     <TextView
         android:id="@+id/mms_class"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="8dp"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/textView22"
-        app:layout_constraintTop_toTopOf="@+id/textView22" />
+        app:layout_constraintTop_toBottomOf="@+id/mms_itemDEP" />
 
     <TextView
         android:id="@+id/mms_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="6dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/textView23"
-        app:layout_constraintTop_toTopOf="@+id/textView23" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
 </androidx.constraintlayout.widget.ConstraintLayout>

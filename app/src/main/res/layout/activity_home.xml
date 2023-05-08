@@ -65,7 +65,7 @@
         android:id="@+id/btn_borrow"
         android:layout_width="320dp"
         android:layout_height="80dp"
-        android:backgroundTint="#00000000"
+        android:background="#00FFFFFF"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

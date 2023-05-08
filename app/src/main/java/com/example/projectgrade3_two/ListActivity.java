@@ -2,9 +2,11 @@ package com.example.projectgrade3_two;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -55,6 +57,19 @@ public class ListActivity extends AppCompatActivity {
 
         itemDoneClass(item_class, item_status);
         mmsData(mms_user);
+
+        Button button_mms_to_home = findViewById(R.id.button_mms_to_home);
+        button_mms_to_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this, MmsActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("user_id", user_id);
+//                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
