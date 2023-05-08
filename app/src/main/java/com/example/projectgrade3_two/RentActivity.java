@@ -43,11 +43,11 @@ public class RentActivity extends AppCompatActivity {
     String urlRepUpdate = "https://projectgrade3two.000webhostapp.com/updateStatus.php";
 
     Button btn_rent_send, btn_date;
-    String item_id, user_id, type;
+    String item_id, user_id, type, rent_user;
 
     TextView txtItemID, txtItemName, txtDate;
 
-    EditText txtUser, txtDep;
+    EditText txtUser;
     RadioGroup Group;
 
     DatePickerDialog.OnDateSetListener datePicker;
@@ -59,7 +59,6 @@ public class RentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rent);
 
         txtUser = findViewById(R.id.ed_user);
-        txtDep = findViewById(R.id.ed_department);
 
         Bundle bundle =  getIntent().getExtras();
         item_id = bundle.getString("item_id");
@@ -102,9 +101,11 @@ public class RentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 insertRentData();
                 updateRent(item_id);
-                Intent intent = new Intent(RentActivity.this, HomeActivity.class);
+                Intent intent = new Intent(RentActivity.this, RentListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("user_id", user_id);
+                bundle.putString("item_id", item_id);
+                bundle.putString("rent_user", rent_user);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -194,8 +195,7 @@ public class RentActivity extends AppCompatActivity {
     }
 
     private void insertRentData() {
-        String rent_user = txtUser.getText().toString();
-//        String rent_department = txtDep.getText().toString();
+        rent_user = txtUser.getText().toString();
         String rent_end = txtDate.getText().toString();
         String rent_item = item_id;
         String rent_type = type;
@@ -234,7 +234,6 @@ public class RentActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError{
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("rent_user", rent_user);
-//                params.put("rent_department", rent_department);
                 params.put("rent_end", rent_end);
                 params.put("rent_item", rent_item);
                 params.put("rent_type", rent_type);
