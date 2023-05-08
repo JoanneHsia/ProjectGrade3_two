@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -37,6 +36,8 @@ public class ListActivity extends AppCompatActivity {
     String item_class, item_status, mms_user;
     TextView txtUserID, txtHosID, txtMMSTime, txtMMSClass;
 
+    Button btn_back1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,19 +59,18 @@ public class ListActivity extends AppCompatActivity {
         itemDoneClass(item_class, item_status);
         mmsData(mms_user);
 
-        Button button_mms_to_home = findViewById(R.id.button_mms_to_home);
-        button_mms_to_home.setOnClickListener(new View.OnClickListener() {
+        btn_back1 = findViewById(R.id.btn_back1);
+
+        btn_back1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListActivity.this, MmsActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("user_id", user_id);
-//                intent.putExtras(bundle);
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", mms_user);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-
-
     }
 
     private void mmsData(String mms_user){
