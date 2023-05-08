@@ -3,10 +3,12 @@ package com.example.projectgrade3_two;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,7 +27,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class RentActivity extends AppCompatActivity {
@@ -37,13 +42,16 @@ public class RentActivity extends AppCompatActivity {
 
     String urlRepUpdate = "https://projectgrade3two.000webhostapp.com/updateStatus.php";
 
-    Button btn_rent_send;
+    Button btn_rent_send, btn_date;
     String item_id, user_id, type;
 
-    TextView txtItemID, txtItemName;
+    TextView txtItemID, txtItemName, txtDate;
 
-    EditText txtDate,txtUser, txtDep;
+    EditText txtUser, txtDep;
     RadioGroup Group;
+
+    DatePickerDialog.OnDateSetListener datePicker;
+    Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +60,6 @@ public class RentActivity extends AppCompatActivity {
 
         txtUser = findViewById(R.id.ed_user);
         txtDep = findViewById(R.id.ed_department);
-        txtDate = findViewById(R.id.ed_date);
 
         Bundle bundle =  getIntent().getExtras();
         item_id = bundle.getString("item_id");
@@ -100,6 +107,32 @@ public class RentActivity extends AppCompatActivity {
                 bundle.putString("user_id", user_id);
                 intent.putExtras(bundle);
                 startActivity(intent);
+            }
+        });
+
+        btn_date = findViewById(R.id.btn_date);
+        txtDate = findViewById(R.id.txt_date);
+        datePicker = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int date) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, date);
+                String myFormat = "yyyy-MM-dd";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.TAIWAN);
+                txtDate.setText(sdf.format(calendar.getTime()));
+
+            }
+        };
+        btn_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dialog = new DatePickerDialog(RentActivity.this,datePicker,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                dialog.show();
             }
         });
 
@@ -162,7 +195,7 @@ public class RentActivity extends AppCompatActivity {
 
     private void insertRentData() {
         String rent_user = txtUser.getText().toString();
-        String rent_department = txtDep.getText().toString();
+//        String rent_department = txtDep.getText().toString();
         String rent_end = txtDate.getText().toString();
         String rent_item = item_id;
         String rent_type = type;
@@ -201,7 +234,7 @@ public class RentActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError{
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("rent_user", rent_user);
-                params.put("rent_department", rent_department);
+//                params.put("rent_department", rent_department);
                 params.put("rent_end", rent_end);
                 params.put("rent_item", rent_item);
                 params.put("rent_type", rent_type);
