@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -43,7 +44,7 @@ public class RentActivity extends AppCompatActivity {
     String urlRepUpdate = "https://projectgrade3two.000webhostapp.com/updateStatus.php";
 
     Button btn_rent_send, btn_date;
-    String item_id, user_id, type, rent_user;
+    String item_id, user_id, type, rent_user, test_user, test_date, test_type;
 
     TextView txtItemID, txtItemName, txtDate;
 
@@ -59,6 +60,8 @@ public class RentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rent);
 
         txtUser = findViewById(R.id.ed_user);
+        btn_date = findViewById(R.id.btn_date);
+        txtDate = findViewById(R.id.txt_date);
 
         Bundle bundle =  getIntent().getExtras();
         item_id = bundle.getString("item_id");
@@ -78,6 +81,7 @@ public class RentActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        type = "0";
         Group = findViewById(R.id.Group);
         Group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -99,6 +103,20 @@ public class RentActivity extends AppCompatActivity {
         btn_rent_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                test_user = txtUser.getText().toString().trim();
+                test_date = txtDate.getText().toString().trim();
+                if (test_user.isEmpty()){
+                    txtUser.setError("請填入對方負責人代碼");
+                    txtUser.requestFocus();
+                    return;
+                } else if (test_date.isEmpty()) {
+                    txtDate.setTextColor(Color.parseColor("#ff0000"));
+                    txtDate.setText("請選擇日期");
+                    return;
+                } else if (type.equals("0")) {
+                    Toast.makeText(RentActivity.this, "請選擇借物方式", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 insertRentData();
                 updateRent(item_id, rent_user);
                 Intent intent = new Intent(RentActivity.this, RentListActivity.class);
@@ -111,8 +129,6 @@ public class RentActivity extends AppCompatActivity {
             }
         });
 
-        btn_date = findViewById(R.id.btn_date);
-        txtDate = findViewById(R.id.txt_date);
         datePicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int date) {
@@ -121,6 +137,7 @@ public class RentActivity extends AppCompatActivity {
                 calendar.set(Calendar.DAY_OF_MONTH, date);
                 String myFormat = "yyyy-MM-dd";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.TAIWAN);
+                txtDate.setTextColor(Color.parseColor("#868686"));
                 txtDate.setText(sdf.format(calendar.getTime()));
 
             }
