@@ -137,6 +137,8 @@ public class ReturnActivity extends AppCompatActivity {
 
         String item_status = "閒置中";
         String item_occupybed = "0";
+        String item_describe = "";
+        String item_rentD = "";
 
         StringRequest request = new StringRequest(Request.Method.POST, urlRetUpdate,
                 new Response.Listener<String>() {
@@ -173,6 +175,8 @@ public class ReturnActivity extends AppCompatActivity {
                 params.put("item_status", item_status);
                 params.put("item_id", item_id);
                 params.put("item_occupybed", item_occupybed);
+                params.put("item_describe", item_describe);
+                params.put("item_rentD", item_rentD);
 
                 return params;
             }

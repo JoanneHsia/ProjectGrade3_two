@@ -100,7 +100,7 @@ public class RentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 insertRentData();
-                updateRent(item_id);
+                updateRent(item_id, rent_user);
                 Intent intent = new Intent(RentActivity.this, RentListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("user_id", user_id);
@@ -247,7 +247,7 @@ public class RentActivity extends AppCompatActivity {
 
     }
 
-    private void updateRent(String item_id) {
+    private void updateRent(String item_id, String rent_user) {
 
         String item_status = "借用中";
 
@@ -285,6 +285,7 @@ public class RentActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("item_status", item_status);
                 params.put("item_id", item_id);
+                params.put("rent_user", rent_user);
 
                 return params;
             }
