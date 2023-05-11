@@ -41,6 +41,8 @@ public class DoneActivity extends AppCompatActivity {
     String urlitemid = "https://projectgrade3two.000webhostapp.com/searchItem.php";
     String urlremark = "https://projectgrade3two.000webhostapp.com/remark.php";
 
+    String urlinsertMMSD = "https://projectgrade3two.000webhostapp.com/insertMMSDetail.php";
+
     TextView txtItemID, txtItemName, txtNoremark;
 
 
@@ -78,6 +80,7 @@ public class DoneActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateDoneData(item_id);
+                inseertMMSData(item_id);
                 Intent intent = new Intent(DoneActivity.this, TodoListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("item_class",item_class);
@@ -256,5 +259,54 @@ public class DoneActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
 
     }
+    private void inseertMMSData(String id) {
+
+        String mms_item_id = item_id;
+        String mms_userID = user_id;
+
+        StringRequest request = new StringRequest(Request.Method.POST, urlinsertMMSD,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")){
+//                                Toast.makeText(DoneActivity.this, "ok5", Toast.LENGTH_SHORT).show();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(DoneActivity.this, "err" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(DoneActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mms_item_id", mms_item_id);
+                params.put("mms_userID", mms_userID);
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(DoneActivity.this);
+        requestQueue.add(request);
+
+    }
+
 
 }

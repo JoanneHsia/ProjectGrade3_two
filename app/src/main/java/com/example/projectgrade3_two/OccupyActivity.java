@@ -37,7 +37,7 @@ public class OccupyActivity extends AppCompatActivity {
 
     String urlBedUpdate = "https://projectgrade3two.000webhostapp.com/updateBed.php";
     String urlitemid = "https://projectgrade3two.000webhostapp.com/searchItem.php";
-
+    String urlinsertOCC = "https://projectgrade3two.000webhostapp.com/insertOCC.php";
     TextView txtItemID, txtItemName;
 
 
@@ -83,6 +83,7 @@ public class OccupyActivity extends AppCompatActivity {
                     return;
                 }
                 updateBed(item_id);
+                inseertOCCData(item_id);
                 Intent intent = new Intent(OccupyActivity.this, HomeActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("user_id",user_id);
@@ -187,6 +188,54 @@ public class OccupyActivity extends AppCompatActivity {
                 params.put("item_status", item_status);
                 params.put("item_id", item_id);
                 params.put("item_occupybed", item_occupybed);
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(OccupyActivity.this);
+        requestQueue.add(request);
+
+    }
+    private void inseertOCCData(String id) {
+
+        String occupy_item = item_id;
+        String occupy_user = user_id;
+
+        StringRequest request = new StringRequest(Request.Method.POST, urlinsertOCC,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")){
+//                                Toast.makeText(DoneActivity.this, "ok5", Toast.LENGTH_SHORT).show();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(OccupyActivity.this, "err" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(OccupyActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("occupy_item", occupy_item);
+                params.put("occupy_user", occupy_user);
 
                 return params;
             }
