@@ -47,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email, password, user_id;
+                String email, password, user_id, testEmail;
                 user_id = emailText.getText().toString().trim();
                 email = emailText.getText().toString() + "@fjuh.com";
                 password = passwordText.getText().toString();
+                testEmail = emailText.getText().toString();
 
-                if (email.isEmpty()){
+                if (testEmail.isEmpty()){
                     emailText.setError("請填入帳號");
                     emailText.requestFocus();
                     return;
