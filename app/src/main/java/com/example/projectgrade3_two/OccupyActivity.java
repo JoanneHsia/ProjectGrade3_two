@@ -201,7 +201,7 @@ public class OccupyActivity extends AppCompatActivity {
 
         String occupy_item = item_id;
         String occupy_user = user_id;
-
+        String occupy_bed = txtUpBed.getText().toString();
         StringRequest request = new StringRequest(Request.Method.POST, urlinsertOCC,
                 new Response.Listener<String>() {
                     @Override
@@ -236,6 +236,7 @@ public class OccupyActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("occupy_item", occupy_item);
                 params.put("occupy_user", occupy_user);
+                params.put("occupy_bed", occupy_bed);
 
                 return params;
             }

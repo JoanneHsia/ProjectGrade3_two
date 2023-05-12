@@ -33,8 +33,9 @@ public class RepaireActivity extends AppCompatActivity {
 
     Button btn_repSend;
 
-    String urlRepUpdate = "https://projectgrade3two.000webhostapp.com/updateStatus.php";
+    String urlRepUpdate = "https://projectgrade3two.000webhostapp.com/updateREP.php";
     String urlitemid = "https://projectgrade3two.000webhostapp.com/searchItem.php";
+    String urlinsertRep = "https://projectgrade3two.000webhostapp.com/insertREP.php";
 
     TextView txtItemID, txtItemName;
 
@@ -75,6 +76,7 @@ public class RepaireActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateRep(item_id);
+                inseertRepData(item_id);
                 Intent intent = new Intent(RepaireActivity.this, HomeActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("user_id",user_id);
@@ -177,6 +179,54 @@ public class RepaireActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("item_status", item_status);
                 params.put("item_id", item_id);
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(RepaireActivity.this);
+        requestQueue.add(request);
+
+    }
+    private void inseertRepData(String id) {
+
+        String repair_item = item_id;
+        String repair_user = user_id;
+
+        StringRequest request = new StringRequest(Request.Method.POST, urlinsertRep,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")){
+//                                Toast.makeText(DoneActivity.this, "ok5", Toast.LENGTH_SHORT).show();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(RepaireActivity.this, "err" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(RepaireActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("repair_item", repair_item);
+                params.put("repair_user", repair_user);
 
                 return params;
             }
