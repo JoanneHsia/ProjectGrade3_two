@@ -64,7 +64,7 @@ public class TodoListActivity extends AppCompatActivity {
         user_id = bundle.getString("user_id");
         String item_status = "閒置中";
 
-        itemUndoClass(item_class, item_status);
+        itemUndoClass(item_class, item_status, user_id);
         itemDoneClass(item_class, item_status);
 
 
@@ -127,7 +127,7 @@ public class TodoListActivity extends AppCompatActivity {
         }
     }
 
-    private void itemUndoClass(String item_class, String item_status){
+    private void itemUndoClass(String item_class, String item_status, String user_id){
         undoList = findViewById(R.id.undo_list);
         undoList.setStretchAllColumns(true);
         TableLayout.LayoutParams row_layout = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
@@ -197,6 +197,7 @@ public class TodoListActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("item_class", item_class);
                 params.put("item_status", item_status);
+                params.put("user_id", user_id);
 
                 return params;
             }
