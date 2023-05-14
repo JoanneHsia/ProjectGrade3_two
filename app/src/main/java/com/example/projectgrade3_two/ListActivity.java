@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -160,6 +161,10 @@ public class ListActivity extends AppCompatActivity {
 
                                     TextView itemName = new TextView(ListActivity.this);
                                     itemName.setText(object.getString("item_name").trim());
+                                    itemName.setMaxLines(2);
+                                    itemName.setEllipsize(TextUtils.TruncateAt.END);
+                                    itemName.setHorizontallyScrolling(false);
+                                    itemName.setWidth(110);
                                     itemName.setLayoutParams(view_layout);
 
                                     TextView itemStatus = new TextView(ListActivity.this);

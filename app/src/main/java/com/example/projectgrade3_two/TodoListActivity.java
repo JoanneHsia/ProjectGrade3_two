@@ -158,9 +158,9 @@ public class TodoListActivity extends AppCompatActivity {
 
                                     TextView itemName = new TextView(TodoListActivity.this);
                                     itemName.setText(object.getString("item_name").trim());
-                                    itemName.setMaxLines(2); // 限制 TextView 最多显示 2 行
-                                    itemName.setEllipsize(TextUtils.TruncateAt.END); // 超出限制行数后，用省略号表示剩余的文本
-                                    itemName.setHorizontallyScrolling(false); // 禁用横向滚动
+                                    itemName.setMaxLines(2);
+                                    itemName.setEllipsize(TextUtils.TruncateAt.END);
+                                    itemName.setHorizontallyScrolling(false);
                                     itemName.setWidth(110);
                                     itemName.setLayoutParams(view_layout);
 
@@ -241,6 +241,10 @@ public class TodoListActivity extends AppCompatActivity {
 
                                     TextView itemName = new TextView(TodoListActivity.this);
                                     itemName.setText(object.getString("item_name").trim());
+                                    itemName.setMaxLines(2);
+                                    itemName.setEllipsize(TextUtils.TruncateAt.END);
+                                    itemName.setHorizontallyScrolling(false);
+                                    itemName.setWidth(110);
                                     itemName.setLayoutParams(view_layout);
 
                                     TextView itemStatus = new TextView(TodoListActivity.this);
