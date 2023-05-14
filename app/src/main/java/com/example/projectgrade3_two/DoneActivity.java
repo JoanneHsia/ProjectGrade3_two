@@ -43,7 +43,7 @@ public class DoneActivity extends AppCompatActivity {
 
     String urlinsertMMSD = "https://projectgrade3two.000webhostapp.com/insertMMSDetail.php";
 
-    TextView txtItemID, txtItemName, txtNoremark;
+    TextView txtItemID, txtItemName, txtNoremark, txtNote;
 
 
     @Override
@@ -109,12 +109,16 @@ public class DoneActivity extends AppCompatActivity {
 
                                     String itemId = object.getString("item_id").trim();
                                     String itemName = object.getString("item_name").trim();
+                                    String itemNote = object.getString("item_note").trim();
+
 
                                     txtItemID = findViewById(R.id.txt_itemID);
                                     txtItemName = findViewById(R.id.txt_itemName);
+                                    txtNote = findViewById(R.id.txt_note);
 
                                     txtItemID.setText(itemId);
                                     txtItemName.setText(itemName);
+                                    txtNote.setText(itemNote);
 
 //                                    Toast.makeText(DoneActivity.this, "ok4", Toast.LENGTH_SHORT).show();
 
