@@ -1,7 +1,9 @@
 package com.example.projectgrade3_two;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,20 +35,22 @@ import java.util.Map;
 
 public class DoneActivity extends AppCompatActivity {
 
-    String item_id, item_class, user_id;
+    String item_id, item_class, user_id, item_status;
 
     EditText txtUpDescribe;
 
-    Button btn_done;
+    Button btn_done, btn;
 
     String urlDoneUpdate = "https://projectgrade3two.000webhostapp.com/checkItem.php";
     String urlitemid = "https://projectgrade3two.000webhostapp.com/searchItem.php";
     String urlremark = "https://projectgrade3two.000webhostapp.com/remark.php";
+    String urljudge = "https://projectgrade3two.000webhostapp.com/judge.php";
+    String urltodo = "https://projectgrade3two.000webhostapp.com/todo.php";
 
     String urlinsertMMSD = "https://projectgrade3two.000webhostapp.com/insertMMSDetail.php";
 
     TextView txtItemID, txtItemName, txtNoremark, txtNote;
-
+    AlertDialog builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +72,7 @@ public class DoneActivity extends AppCompatActivity {
         txtUpDescribe.setVisibility(View.INVISIBLE);
 
         btn_done = findViewById(R.id.btn_done);
+        btn_done.setVisibility(View.INVISIBLE);
 
         Bundle bundle =  getIntent().getExtras();
         item_id = bundle.getString("item_id");
@@ -75,6 +82,10 @@ public class DoneActivity extends AppCompatActivity {
 
         itemQrcode(item_id);
         remark(item_id);
+        item_status = "閒置中";
+        judge(item_id,item_status);
+        todo(item_id);
+
 
         btn_done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,6 +274,171 @@ public class DoneActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
 
     }
+    private void judge(String item_id,String item_status){
+        TableLayout.LayoutParams row_layout = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams view_layout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+        StringRequest request = new StringRequest(Request.Method.POST, urljudge,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("judgeData");
+
+                            if (success.equals("1")) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+
+                                    TableRow trUndo = new TableRow(DoneActivity.this);
+
+                                    trUndo.setLayoutParams(row_layout);
+                                    trUndo.setGravity(Gravity.CENTER_HORIZONTAL);
+
+                                    TextView itemId = new TextView(DoneActivity.this);
+                                    itemId.setText(object.getString("item_id").trim());
+                                    itemId.setLayoutParams(view_layout);
+
+                                    TextView itemName = new TextView(DoneActivity.this);
+                                    itemName.setText(object.getString("item_name").trim());
+                                    itemName.setLayoutParams(view_layout);
+
+                                    btn_done.setVisibility(View.VISIBLE);
+
+
+                                }
+
+                            } else if (success.equals("2")) {
+                                AlertDialog.Builder builder =  new AlertDialog.Builder(DoneActivity.this);
+                                builder.setIcon(R.drawable.warning)
+                                        .setTitle("不當作業！")
+                                        .setMessage("請確認此物品當前狀態");
+
+                                builder.setNegativeButton("確認", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(DoneActivity.this, TodoListActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("item_id", item_id);
+                                        bundle.putString("item_class",item_class);
+                                        bundle.putString("user_id",user_id);
+                                        intent.putExtras(bundle);
+                                        startActivity(intent);
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(DoneActivity.this, "err" + e, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(DoneActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("item_id", item_id);
+                params.put("item_status", item_status);
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(request);
+
+    }
+    private void todo(String item_id){
+        TableLayout.LayoutParams row_layout = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams view_layout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+        StringRequest request = new StringRequest(Request.Method.POST, urltodo,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("todoData");
+
+                            if (success.equals("1")) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+
+                                    TableRow trUndo = new TableRow(DoneActivity.this);
+
+                                    trUndo.setLayoutParams(row_layout);
+                                    trUndo.setGravity(Gravity.CENTER_HORIZONTAL);
+
+                                    TextView itemId = new TextView(DoneActivity.this);
+                                    itemId.setText(object.getString("item_id").trim());
+                                    itemId.setLayoutParams(view_layout);
+
+                                    TextView itemName = new TextView(DoneActivity.this);
+                                    itemName.setText(object.getString("item_name").trim());
+                                    itemName.setLayoutParams(view_layout);
+
+                                    btn_done.setVisibility(View.VISIBLE);
+
+
+                                }
+
+                            } else if (success.equals("2")) {
+                                AlertDialog.Builder builder =  new AlertDialog.Builder(DoneActivity.this);
+                                builder.setIcon(R.drawable.warning)
+                                        .setTitle("誤重複掃描物品！")
+                                        .setMessage("此物品已完成點班，請返回點班頁面確認點班項目，並掃描其他物品");
+
+                                // 取消按钮
+                                builder.setNegativeButton("確認", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(DoneActivity.this, TodoListActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("item_id", item_id);
+                                        bundle.putString("item_class",item_class);
+                                        bundle.putString("user_id",user_id);
+                                        intent.putExtras(bundle);
+                                        startActivity(intent);
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(DoneActivity.this, "err", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(DoneActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("item_id", item_id);
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(request);
+
+    }
     private void inseertMMSData(String id) {
 
         String mms_item_id = item_id;
@@ -311,6 +487,7 @@ public class DoneActivity extends AppCompatActivity {
         requestQueue.add(request);
 
     }
+
 
 
 }

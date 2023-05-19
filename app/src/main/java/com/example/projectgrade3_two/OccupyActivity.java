@@ -1,13 +1,18 @@
 package com.example.projectgrade3_two;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +34,7 @@ import java.util.Map;
 
 public class OccupyActivity extends AppCompatActivity {
 
-    String item_id, user_id, test_bed;
+    String item_id, user_id, test_bed,item_status;
 
     EditText txtUpBed;
 
@@ -38,6 +43,7 @@ public class OccupyActivity extends AppCompatActivity {
     String urlBedUpdate = "https://projectgrade3two.000webhostapp.com/updateBed.php";
     String urlitemid = "https://projectgrade3two.000webhostapp.com/searchItem.php";
     String urlinsertOCC = "https://projectgrade3two.000webhostapp.com/insertOCC.php";
+    String urljudge = "https://projectgrade3two.000webhostapp.com/judge.php";
     TextView txtItemID, txtItemName;
 
 
@@ -66,12 +72,15 @@ public class OccupyActivity extends AppCompatActivity {
 
         txtUpBed = findViewById(R.id.ed_bed);
         btn_occSend = findViewById(R.id.btn_occupy_send);
+        btn_occSend.setVisibility(View.INVISIBLE);
 
         Bundle bundle =  getIntent().getExtras();
         item_id = bundle.getString("item_id");
         user_id = bundle.getString(("user_id"));
 
+        item_status = "閒置中";
         itemQrcode(item_id);
+        judge(item_id,item_status);
 
         btn_occSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,6 +253,86 @@ public class OccupyActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(OccupyActivity.this);
         requestQueue.add(request);
+
+    }
+    private void judge(String item_id,String item_status){
+        TableLayout.LayoutParams row_layout = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams view_layout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+        StringRequest request = new StringRequest(Request.Method.POST, urljudge,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("judgeData");
+
+                            if (success.equals("1")) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+
+                                    TableRow trUndo = new TableRow(OccupyActivity.this);
+
+                                    trUndo.setLayoutParams(row_layout);
+                                    trUndo.setGravity(Gravity.CENTER_HORIZONTAL);
+
+                                    TextView itemId = new TextView(OccupyActivity.this);
+                                    itemId.setText(object.getString("item_id").trim());
+                                    itemId.setLayoutParams(view_layout);
+
+                                    TextView itemName = new TextView(OccupyActivity.this);
+                                    itemName.setText(object.getString("item_name").trim());
+                                    itemName.setLayoutParams(view_layout);
+
+                                    btn_occSend.setVisibility(View.VISIBLE);
+
+
+                                }
+
+                            } else if (success.equals("2")) {
+                                AlertDialog.Builder builder =  new AlertDialog.Builder(OccupyActivity.this);
+                                builder.setIcon(R.drawable.warning)
+                                        .setTitle("不當作業！")
+                                        .setMessage("請確認此物品當前狀態");
+
+                                builder.setNegativeButton("確認", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(OccupyActivity.this, HomeActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("user_id",user_id);
+                                        intent.putExtras(bundle);
+                                        startActivity(intent);
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(OccupyActivity.this, "err" + e, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(OccupyActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("item_id", item_id);
+                params.put("item_status", item_status);
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(request);
 
     }
 }
