@@ -313,7 +313,7 @@ public class DoneActivity extends AppCompatActivity {
                                 AlertDialog.Builder builder =  new AlertDialog.Builder(DoneActivity.this);
                                 builder.setIcon(R.drawable.warning)
                                         .setTitle("不當作業！")
-                                        .setMessage("請確認此物品當前狀態");
+                                        .setMessage("此物品尚未執行歸還作業，請確認此物品當前狀態");
 
                                 builder.setNegativeButton("確認", new DialogInterface.OnClickListener() {
                                     @Override
