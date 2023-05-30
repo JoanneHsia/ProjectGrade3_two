@@ -197,6 +197,7 @@ public class OccupyActivity extends AppCompatActivity {
                 params.put("item_status", item_status);
                 params.put("item_id", item_id);
                 params.put("item_occupybed", item_occupybed);
+                params.put("item_describe", item_occupybed);
 
                 return params;
             }

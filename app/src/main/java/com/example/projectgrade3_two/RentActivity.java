@@ -74,13 +74,13 @@ public class RentActivity extends AppCompatActivity {
 
         itemQrcode(item_id);
         item_status = "閒置中";
-        judge(item_id,item_status);
+//        judge(item_id,item_status);
 
         user_id = bundle.getString("user_id");
 
         Button backPageBtn = (Button)findViewById(R.id.rentback_btn);
         btn_rent_send = findViewById(R.id.btn_rent_send);
-        btn_rent_send.setVisibility(View.INVISIBLE);
+//        btn_rent_send.setVisibility(View.INVISIBLE);
         backPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -322,85 +322,85 @@ public class RentActivity extends AppCompatActivity {
         requestQueue.add(request);
 
     }
-    private void judge(String item_id,String item_status){
-        TableLayout.LayoutParams row_layout = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
-        TableRow.LayoutParams view_layout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-
-        StringRequest request = new StringRequest(Request.Method.POST, urljudge,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("judgeData");
-
-                            if (success.equals("1")) {
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject object = jsonArray.getJSONObject(i);
-
-                                    TableRow trUndo = new TableRow(RentActivity.this);
-
-                                    trUndo.setLayoutParams(row_layout);
-                                    trUndo.setGravity(Gravity.CENTER_HORIZONTAL);
-
-                                    TextView itemId = new TextView(RentActivity.this);
-                                    itemId.setText(object.getString("item_id").trim());
-                                    itemId.setLayoutParams(view_layout);
-
-                                    TextView itemName = new TextView(RentActivity.this);
-                                    itemName.setText(object.getString("item_name").trim());
-                                    itemName.setLayoutParams(view_layout);
-
-                                    btn_rent_send.setVisibility(View.VISIBLE);
-
-
-                                }
-
-                            } else if (success.equals("2")) {
-                                AlertDialog.Builder builder =  new AlertDialog.Builder(RentActivity.this);
-                                builder.setIcon(R.drawable.warning)
-                                        .setTitle("不當作業！")
-                                        .setMessage("請確認此物品當前狀態");
-
-                                builder.setNegativeButton("確認", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(RentActivity.this, HomeActivity.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("user_id",user_id);
-                                        intent.putExtras(bundle);
-                                        startActivity(intent);
-                                    }
-                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(RentActivity.this, "err" + e, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(RentActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-        }
-        ){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("item_id", item_id);
-                params.put("item_status", item_status);
-
-                return params;
-            }
-        };
-
-        Volley.newRequestQueue(this).add(request);
-
-    }
+//    private void judge(String item_id,String item_status){
+//        TableLayout.LayoutParams row_layout = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+//        TableRow.LayoutParams view_layout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+//
+//        StringRequest request = new StringRequest(Request.Method.POST, urljudge,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(response);
+//                            String success = jsonObject.getString("success");
+//                            JSONArray jsonArray = jsonObject.getJSONArray("judgeData");
+//
+//                            if (success.equals("1")) {
+//                                for (int i = 0; i < jsonArray.length(); i++) {
+//                                    JSONObject object = jsonArray.getJSONObject(i);
+//
+//                                    TableRow trUndo = new TableRow(RentActivity.this);
+//
+//                                    trUndo.setLayoutParams(row_layout);
+//                                    trUndo.setGravity(Gravity.CENTER_HORIZONTAL);
+//
+//                                    TextView itemId = new TextView(RentActivity.this);
+//                                    itemId.setText(object.getString("item_id").trim());
+//                                    itemId.setLayoutParams(view_layout);
+//
+//                                    TextView itemName = new TextView(RentActivity.this);
+//                                    itemName.setText(object.getString("item_name").trim());
+//                                    itemName.setLayoutParams(view_layout);
+//
+//                                    btn_rent_send.setVisibility(View.VISIBLE);
+//
+//
+//                                }
+//
+//                            } else if (success.equals("2")) {
+//                                AlertDialog.Builder builder =  new AlertDialog.Builder(RentActivity.this);
+//                                builder.setIcon(R.drawable.warning)
+//                                        .setTitle("不當作業！")
+//                                        .setMessage("請確認此物品當前狀態");
+//
+//                                builder.setNegativeButton("確認", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        Intent intent = new Intent(RentActivity.this, HomeActivity.class);
+//                                        Bundle bundle = new Bundle();
+//                                        bundle.putString("user_id",user_id);
+//                                        intent.putExtras(bundle);
+//                                        startActivity(intent);
+//                                    }
+//                                });
+//                                AlertDialog alert = builder.create();
+//                                alert.show();
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                            Toast.makeText(RentActivity.this, "err" + e, Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(RentActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }
+//        ){
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("item_id", item_id);
+//                params.put("item_status", item_status);
+//
+//                return params;
+//            }
+//        };
+//
+//        Volley.newRequestQueue(this).add(request);
+//
+//    }
 
 }
